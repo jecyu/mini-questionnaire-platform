@@ -1,0 +1,110 @@
+
+
+/* 主体部分 */
+
+section.active {}
+
+.personal-info {
+    display: flex;
+    margin-top: 50px;
+    background: #888;
+}
+
+/* About Me */
+.personal-info .container {
+    padding: 50px 20px 20px 20px;
+    font-size: 18px;
+    color: #fff;
+    background: #aaa;
+}
+
+.media .media-body .media-heading {
+    font-size: 25px;
+} 
+
+.personal-info .container .media img {
+    width: 100px;
+}
+
+/* Portfolio */
+.section .container {
+    padding: 20px;
+    color: #888;
+    background: rgb(238, 238, 238);
+}
+
+.section .container .section-title {
+   text-align: center; 
+}
+
+.section .container .section-line {
+    border-bottom: 5px solid #888;
+    width: 50%;
+}
+
+.portfolio .container .row {
+}
+
+.portfolio .container [class*="col-"] {
+    margin: 20px 0 0 0;    
+    padding: 20px;  
+}
+
+.portfolio .container [class*="col-"]:hover {
+    opacity: .8;
+    box-shadow: 1px 1px 10px #ddd;
+}
+
+
+.portfolio .portfolio-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #5e5e5e;
+}
+
+.portfolio .container .portfolio-img {
+    width: 100%;
+    height: auto;
+}
+
+/* Contact */
+.contact .form-group .form-label {
+    font-size: 18px;
+}
+
+.contact .contact-tips {
+    font-size: 18px;
+}
+
+/* social icon */
+
+.social-icon .social-list {
+    margin-left: -40px;
+}
+
+.social-icon .social-list .social-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.social-icon .social-item .btn.social {
+    width: 50px;
+    height: 50px;    
+    border: 2px solid #aaa;
+    border-radius: 50%;
+    
+    font-size: 20px;
+    line-height: 35px;
+    color: #888;
+
+    transition: all .3s ease-in-out;
+}
+
+.social-icon .social-item .btn.social:hover {
+    border: 2px solid #fff;    
+    color: #722872;
+    background: #fff;
+}
+
+
+

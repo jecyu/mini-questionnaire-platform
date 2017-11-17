@@ -1,0 +1,149 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%= require('html-loader!./layout/head-common.html')  %>
+        <title>Jecyu</title>
+</head>
+
+<body>   
+    <%= require('html-loader!./layout/nav.html')  %>
+    <main>
+        <!-- <a class="anchor" id="top"></a> -->
+        <section id="top">
+            <div class="personal-info">
+                <div class="container">
+                    <div class="media">
+                        <div class="media-left media-middle">
+                            <img src="<%= require('../image/avatar.png') %>" class="img-circle" alt="avatar Jecyu">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">林济煜</h4>
+                            <p>嗨，我是林济煜，一个没有故事的男生，技能平平，却总有颗超神的心。闲时搞搞设计，聊聊摄影，读读书，编编码。过一个平凡无趣的人生实在太容易了，你可以不读书，不冒险，不运动，不写作，不外出，不折腾……但是，人生最后悔的事情就是：我本可以。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <a class="anchor" id="portfolio"></a>     -->
+        <section id="portfolio" class="section portfolio">
+            <div class="container">
+                <h2 class="section-title">Portfolio</h2>
+                <hr class="section-line">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <p class="portfolio-text">CSS常见布局</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <p class="portfolio-text">CSS3常见效果</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <p class="portfolio-text">新闻站</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <p class="portfolio-text">各种轮播</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <p class="portfolio-text">jQuery常见效果</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <p class="portfolio-text">基于vue.js实现的书单</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="http://www.linjiyu.me/ife-baidu-2017/xiaowei-college/task-07/index.html">
+                            <p class="portfolio-text">技术产品官网</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <a href="#">
+                            <p class="portfolio-text">FM播放器</p>
+                            <img class="portfolio-img" src="<%= require('../image/me.jpg') %>" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <a class="anchor" id="contact"></a>             -->
+        <section id="contact" class="contact section">
+            <div class="container">
+                <h2 class="section-title">Contact Me</h2>
+                <hr class="section-line">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <form>
+                            <div class="form-group">
+                                <label class="form-label" for="name">Name</label>
+                                <input type="text" id="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="text" id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="Message">Message</label>
+                                <textarea rows=5 id="Message" class="form-control"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default">Send</button>
+                        </form>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <p class="contact-tips">Want to get in touch with me? Be it to request more info about myself or my experience, to ask for
+                            my resume, tips on how to solve your sudoku, random questions about the universe and the meaning
+                            of life, or even if only for some nice Fika here in stunning Toronto... just feel free to drop
+                            me a line anytime.</p>
+                        <div class="social-icon">
+                            <h2>Where to find me?</h2>
+                            <ul class="social-list">
+                                <li class="social-item">
+                                    <a href="#" class="btn social">
+                                        <i class="fa fa-fw fa-github"></i>
+                                    </a>
+                                </li>
+                                <li class="social-item">
+                                    <a href="#" class="btn social">
+                                        <i class="fa fa-fw fa-weibo"></i>
+                                    </a>
+                                </li>
+                                <li class="social-item">
+                                    <a href="#" class="btn social">
+                                        <i class="fa fa-fw fa-github"></i>
+                                    </a>
+                                </li>
+                                <li class="social-item">
+                                    <a href="#" class="btn social">
+                                        <i class="fa fa-fw fa-github"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <%= require('html-loader!./layout/footer.html')  %>
+</body>
+
+</html>

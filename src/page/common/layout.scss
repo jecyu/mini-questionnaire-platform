@@ -1,0 +1,27 @@
+/**
+ * @Author: Jecyu
+ * @Date: 2017-10-23 6:21:36 pm 
+ * @Modified By: JeCyu 
+ * @Last Modified time: 2017-10-27 5:18:46 pm 
+ */
+ 
+body {  
+    background: #888;
+    /* background: url(../../image/me.jpg) no-repeat; */
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+img {
+    display: block;
+    border: none;
+}
+
+p, iframe {
+    margin: 0;
+    padding: 0;
+}
