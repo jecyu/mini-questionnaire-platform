@@ -1,25 +1,25 @@
 /* npm install webpack sass-loader node-sass url-loader style-loader css-loader file-loader
  imports-loader less-loader less postcss-loader autoprefixer  babel-loader html-loader
  extract-text-webpack-plugin clean-webpack-plugin html-webpack-plugin  font-awesome bootstrap
-  babel-core babel-loader babel-preset-es2015 babel-preset-react webpack-dev-server --save-dev
+  babel-core babel-loader babel-preset-es2015 babel-preset-react webpack-dev-server 
+ --save-dev
 */
-let webpack             = require('webpack');
-let path                = require("path");
-let CleanWebpackPlugin  = require("clean-webpack-plugin");
+let webpack = require('webpack');
+let path = require("path");
+let CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin"); // 压缩JS代码
 
-// 环境变量配置,dev / online
-var WEBPACK_ENV = process.env.WEBPACK_ENV || 'dev';
 
 // 获取HtmlWebpackPlugin的参数（多页应用时，避免代码冗余）
-var getHtmlConfig = function(name, title) {
+var getHtmlConfig = function (name, title) {
     // 把整个对象传过去
     return {
         template: './src/view/' + name + '.html',
         filename: 'view/' + name + '.html',
         title: title,
-        favicon : './src/image/favicon.ico',
+        favicon: './src/image/favicon.ico',
         inject: true,
         hash: true,
         chunks: ['common', name]
@@ -30,8 +30,9 @@ var getHtmlConfig = function(name, title) {
 // entry
 const entry = {
     'common': __dirname + '/src/page/common/index.js',
-    'index':  __dirname + '/src/page/index/index.js'
+    'index': __dirname + '/src/page/index/index.js'
 };
+
 
 // plugin
 const plugins = [
@@ -54,7 +55,29 @@ const plugins = [
     new webpack.ProvidePlugin({ // Automatically load modules instead of having to import or require them everywhere.
         $: 'jquery',
         jQuery: 'jquery'
-    })
+    }),
+    new webpack.DefinePlugin({
+        "process.env": {
+            NODE_ENV: JSON.stringify("production")
+        }
+    }),
+    new UglifyJSPlugin({
+        // 最紧凑的输出
+        beautify: false,
+        // 删除所有的注释
+        comments: false,
+        compress: {
+            // 在UglifyJs删除没有用到的代码时不输出警告
+            warnings: false,
+            // 删除所有的 `console` 语句 还可以兼容ie浏览器
+            drop_console: true,
+            // 内嵌定义了但是只用到一次的变量
+            collapse_vars: true,
+            // 提取出出现多次但是没有定义成变量去引用的静态值
+            reduce_vars: true
+        }
+    }),
+    new webpack.BannerPlugin('©')
 ];
 
 let config = {
@@ -63,7 +86,7 @@ let config = {
     entry: entry,
     output: {
         path: __dirname + '/dist', // 输出文件放置的地方
-        publicPath: 'dev' === WEBPACK_ENV ? '/dist/' : '../', // 打包后的文件访问依赖包的路径
+        publicPath: '../', // 打包后的文件访问依赖包的路径
         filename: 'js/[name].js' // 文件名
     },
     // include jQuery from a CDN instead of bundling it，且让$为全局变量
@@ -73,11 +96,11 @@ let config = {
     resolve: {
         alias: {
             node_modules: path.join(__dirname, '/node_modules'),
-            lib         : path.join(__dirname, '/src/lib'),
-            util        : path.join(__dirname, '/src/util'),
-            component   : path.join(__dirname, '/src/component'),
-            service     : path.join(__dirname, '/src/service'),
-            page        : path.join(__dirname, '/src/page')
+            lib: path.join(__dirname, '/src/lib'),
+            util: path.join(__dirname, '/src/util'),
+            component: path.join(__dirname, '/src/component'),
+            service: path.join(__dirname, '/src/service'),
+            page: path.join(__dirname, '/src/page')
         }
     },
     module: {
@@ -88,7 +111,7 @@ let config = {
                     loader: "babel-loader",
                 },
                 exclude: /node_modules/
-            }, 
+            },
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
@@ -132,11 +155,8 @@ let config = {
         ]
     },
     plugins: plugins
+
 };
 
-// 使用环境变量来判断开发环境来启动服务器
-if ('dev' === WEBPACK_ENV) {
-    config.entry.common.push('webpack-dev-server/client?http://localhost:8088/');
-}
 
 module.exports = config;
