@@ -1,0 +1,53 @@
+$browser-default-font-size: 16px !default;
+// @function
+// $px 为要转换的字号
+@function pxTorem($px) {
+    @return $px / $browser-default-font-size * 1rem;
+}
+
+// to use
+html {
+    font-size: $browser-default-font-size;
+}
+
+.header {
+    font-size: pxTorem(12px);
+}
+
+// @mixin
+@mixin font-size($target) {
+    font-size: $target;
+    font-size: ($target / $browser-default-font-size);
+}
+
+// advance 
+// for multiple attributes
+@mixin remCalc($property, $values) {
+    $max: length($values); // 返回的$values列表的长度值
+    $pxValues: '';
+    $remValues: '';
+
+    @for $i from 1 through $max {
+        // 返回$values列表中的第$i个值，并将单位去掉
+        $value: stript-units(nth($values, $i));
+        $browser-default-font-size: strip-units($browser-default-font-size);
+        $pxValues: #{$pxValues + $value * $browser-default-font-size}px;
+
+        @if $i < $max {
+            $pxValues: #{$pxValues + " "}
+        }
+    } 
+
+    @for $i from 1 through $max {
+        $value: stript-units(nth($values, $i));
+        $remValues: #{$remValues + $value}rem;
+
+        @if $i < $max {
+            $remValues: #{$remValues + " "}
+        }
+    }
+
+    #{$property}: $pxValues;
+    #{$property}: $remValues; 
+}
+

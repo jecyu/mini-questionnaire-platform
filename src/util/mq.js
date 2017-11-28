@@ -5,7 +5,6 @@
  * @Last Modified time: 2017-11-20 11:57:33 am 
  */
 
-'use strict'
 let Hogan = require('hogan.js');
 let conf  = {
      // 因为接口地址和当前的静态文件地址是一样的，所以直接用空
@@ -26,7 +25,7 @@ let _mq = {
             data: params.data || '',
             success: function(res) {
                 // 请求成功
-                if (0 === res.status) {
+                if (200 === res.status) {
                     // success为函数，则进行回调
                     typeof params.success === 'function' && params.success(res.data, res.msg)
                 }

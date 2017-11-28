@@ -2,6 +2,7 @@
  imports-loader less-loader less postcss-loader autoprefixer  babel-loader html-loader
  extract-text-webpack-plugin clean-webpack-plugin html-webpack-plugin  font-awesome bootstrap
   babel-core babel-loader babel-preset-es2015 babel-preset-react webpack-dev-server 
+  hogan.js
  --save-dev
 */
 let webpack             = require('webpack');
@@ -12,7 +13,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 // 获取HtmlWebpackPlugin的参数（多页应用时，避免代码冗余）
-var getHtmlConfig = function (name, title) {
+let getHtmlConfig = function (name, title) {
     // 把整个对象传过去
     return {
         template: './src/view/' + name + '.html',

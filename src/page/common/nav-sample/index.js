@@ -7,7 +7,7 @@
 
 'use strict';
 
-require('./index.scss')
+require('./index.scss');
 
 // 导航
 var nav = {

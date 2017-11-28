@@ -5,17 +5,31 @@
  * @Last Modified time: 2017-10-27 5:12:42 pm 
  */
 
+$basecolor: rgb(237, 115, 29);
+$item1: rgb(238, 238, 238);
+$item2: #fff;
+
 /* 导航 */
-.navbar {    
-    padding: 20px;
-    margin: 0;
-    border: none;
-    background: #722872;
+.nav {    
+    display: flex;
+    align-items: center;
+
+    height: 5rem;
+    padding-left: 4rem;
+
+    font-size: 1.6rem;
+    color: $item2;
+    background: $basecolor;
+
+    .brand {
+        display: inline-block;
+        margin-right: 4rem;
+        font-size: 2.4rem;
+    }
+    .page-name {
+        display: inline-block;
+    }
 }
 
-.navbar .navbar-btn {
-    width: 110px;
-    font-size: 18px;
-}
 
 

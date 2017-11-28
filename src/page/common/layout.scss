@@ -4,10 +4,23 @@
  * @Modified By: JeCyu 
  * @Last Modified time: 2017-10-27 5:18:46 pm 
  */
- 
-body {  
-    background: #888;
-    /* background: url(../../image/me.jpg) no-repeat; */
+
+$basecolor: rgb(237, 115, 29);
+$item1: rgb(238, 238, 238);
+
+
+
+html,
+body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    font: 1.4rem/1.5 arial Microsoft Yahei sans-serif;
+    background: $item1;   
+}
+
+html {
+    font-size: 62.5%;
 }
 
 ul,
@@ -16,12 +29,36 @@ li {
     list-style: none;
 }
 
+body,
+div,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+iframe {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 img {
     display: block;
     border: none;
 }
 
-p, iframe {
-    margin: 0;
-    padding: 0;
+/* common style */
+.w {
+    width: 10.8rem;
 }
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
