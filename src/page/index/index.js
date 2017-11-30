@@ -12,3 +12,6 @@ require('./index.scss');
 require('page/common/index.js');
 require('page/common/nav/index.js');
 
+// 逻辑
+// 1.通过ajax获取mock数据，通过hogan来动态渲染
+// 2.实现单条删除以及全选删除逻辑，选中图标的状态切换

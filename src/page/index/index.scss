@@ -1,111 +1,124 @@
+$basecolor: #ed731d;
+$item1: #fdfdfd;
+$item2: #eee;
+$item3: #6ae661;
 
-
-/* 主体部分 */
-
-section.active {}
-
-
-.personal-info {
-    display: flex;
-    margin-top: 50px;
-    background: #888;
+@mixin setColorAndHover($baseColor) {
+    // color: $baseColor;
+    &:hover {
+        background: lighten($baseColor, 40%);
+    }
 }
 
-/* About Me */
-.personal-info .container {
-    padding: 50px 20px 20px 20px;
-    font-size: 18px;
-    color: #fff;
-    background: #aaa;
+.page-wrap {
+    width: 108rem;
+    margin: 0 auto;
 }
 
-.media .media-body .media-heading {
-    font-size: 25px;
-} 
-
-.personal-info .container .media img {
-    width: 100px;
-}
-
-/* Portfolio */
-.section .container {
-    padding: 20px;
-    color: #888;
-    background: rgb(238, 238, 238);
-}
-
-.section .container .section-title {
-   text-align: center; 
-}
-
-.section .container .section-line {
-    border-bottom: 5px solid #888;
-    width: 50%;
-}
-
-.portfolio .container .row {
-}
-
-.portfolio .container [class*="col-"] {
-    margin: 20px 0 0 0;    
-    padding: 20px;  
-}
-
-.portfolio .container [class*="col-"]:hover {
-    opacity: .8;
-    box-shadow: 1px 1px 10px #ddd;
-}
-
-
-.portfolio .portfolio-text {
-    font-size: 16px;
-    font-weight: bold;
-    color: #5e5e5e;
-}
-
-.portfolio .container .portfolio-img {
+.questionnaire-list  {
     width: 100%;
-    height: auto;
-}
+    // table-layout: fixed;
+    margin-bottom: 20rem;
+    padding: 1rem;    
+    border-collapse: collapse;
+    font-size: 1.4rem;
 
-/* Contact */
-.contact .form-group .form-label {
-    font-size: 18px;
-}
+    .quest-item {
+        @include setColorAndHover($basecolor);
+        cursor: pointer;
 
-.contact .contact-tips {
-    font-size: 18px;
-}
+        .quest-cell {
+            &.release {
+                color: $item3;
+            }
 
-/* social icon */
+            .oprea-btn.active {
+                color: $item1;
+                background: $basecolor;
+            }
+        }
+    }
+    .quest-head {
+        .quest-cell {
+            font-weight: normal;
+        }
 
-.social-icon .social-list {
-    margin-left: -40px;
-}
+        .cell-create {
+            text-align: right;
+        }
 
-.social-icon .social-list .social-item {
-    display: inline-block;
-    margin-right: 10px;
-}
+        .create-btn {
+            padding: .5rem 1rem;
+            border-radius: .2rem;
 
-.social-icon .social-item .btn.social {
-    width: 50px;
-    height: 50px;    
-    border: 2px solid #aaa;
-    border-radius: 50%;
+            color: $item1;
+            background: $basecolor;
+            cursor: pointer;
+        }
+        .fa {
+            margin-right: 1rem;
+        }
+    }
+
+    .quest-body,
+    .quest-footer {
+        background: $item1;
+    }
     
-    font-size: 20px;
-    line-height: 35px;
-    color: #888;
+    .quest-body  {
+        tr {
+            padding: 0 1rem;
+        }      
+        .quest-cell {
+            border-bottom: .2rem solid darken($item2, 5%);
+        }
 
-    transition: all .3s ease-in-out;
+        .cell-oprea {
+            text-align: right;
+        }
+    }
+
+    .quest-footer  {
+        .quest-cell {
+            height: 10rem;
+            vertical-align: top;
+        }
+
+        .oprea-btn {
+            margin-left: 2rem;
+        }
+    }
+
+    .quest-cell {
+        padding: 2rem 1rem;
+    }
+
+    .cell-check {
+        text-align: right;
+        color: darken($item2, 10%);
+        cursor: pointer;
+
+        .fa-circle-o {
+            color: $basecolor;
+        }
+    }
 }
 
-.social-icon .social-item .btn.social:hover {
-    border: 2px solid #fff;    
-    color: #722872;
-    background: #fff;
+.oprea-btn {
+    display: inline-block;
+    width: 8rem;
+    height: 2.5rem;
+    margin-right: 1rem;
+    border: .1rem solid darken($item2, 20%);
+    border-radius: .4rem;
+
+    text-align: center;
+    line-height: 2.5rem;
+    cursor: pointer;
+    background: $item1;
 }
+
+
 
 
 
