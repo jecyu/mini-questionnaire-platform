@@ -90,7 +90,7 @@ let config = {
     module: {
         rules: [
             {
-                test: /\.js[x]?$/,
+                test: /\.(js|jsx)$/,
                 use: {
                     loader: "babel-loader",
                 },
@@ -130,6 +130,17 @@ let config = {
             {
                 test: /\.(woff|svg|eot|ttf)\??.*$/,
                 use: 'url-loader?limit=1000&name=fonts/[name].[ext]'
+            },
+            // string主要作为模版供模版引擎hogan使用
+            {
+                test: /\.string$/,
+                use: [{
+                    loader: 'html-loader',
+                    options: {
+                        minimize: true,
+                        removeAttributeQuotes: false
+                    }
+                }]
             },
             // 将jQuery暴露到全局
             {

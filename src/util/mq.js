@@ -24,15 +24,17 @@ let _mq = {
             dataType: params.type || 'json',
             data: params.data || '',
             success: function(res) {
+                console.log(res.data);
                 // 请求成功
-                if (200 === res.status) {
-                    // success为函数，则进行回调
-                    typeof params.success === 'function' && params.success(res.data, res.msg)
-                }
-                // 请求数据错误
-                else if (1 === res.status) {
-                    typeof params.error === 'function' && params.error(res.msg);
-                }
+                // if (200 === res.status) {
+                    // success为函数，则进行回调传过去
+                    typeof params.success === 'function' && params.success(res.data, res.msg);
+                    // console.log(res.data);                    
+                // }
+                // // 请求数据错误
+                // else if (1 === res.status) {
+                //     typeof params.error === 'function' && params.error(res.msg);
+                // }
             },
             error: function(err) {
                 typeof params.error === 'function' && params.error(err.statusText);                

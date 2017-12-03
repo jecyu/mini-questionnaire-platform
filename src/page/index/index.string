@@ -1,13 +1,49 @@
-<tr class="quest-item">
-    <td class="quest-cell cell-check">
-        <i class="fa fa-circle"></i>
-    </td>
-    <td class="quest-cell">这是我的第一份问卷</td>
-    <td class="quest-cell">2016-04-12 20:46:52</td>
-    <td class="quest-cell release">发布中</td>
-    <td class="quest-cell cell-oprea" colspan="2">
-        <span class="oprea-btn">编辑</span>
-        <span class="oprea-btn">删除</span>
-        <span class="oprea-btn">查看数据</span>
-    </td>
-</tr>
+{{#notEmpty}}
+<thead class="quest-head">
+    <tr>
+        <th class="quest-cell cell-select">&nbsp;</th>
+        <th class="quest-cell cell-title">标题</th>
+        <th class="quest-cell cell-date">时间</th>
+        <th class="quest-cell cell-status">状态</th>
+        <th class="quest-cell cell-opera">操作</th>
+        <th class="quest-cell cell-create"><span class="create-btn"><i class="fa fa-plus"></i>新建问卷</span></th>
+    </tr>
+</thead>
+<tbody class="quest-body">
+{{#list}}
+    <tr class="quest-item">
+        <td class="quest-cell cell-check">
+            <i class="fa fa-circle"></i>
+        </td>
+        <td class="quest-cell">{{ctitle}}</td>
+        <td class="quest-cell">{{createTime}}</td>
+        <td class="quest-cell">{{statusQuest}}</td>
+        <td class="quest-cell cell-oprea" colspan="2">
+            <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">编辑</a>
+            <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">删除</a>
+            {{#isRelease}}
+            <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看数据</a>
+            {{/isRelease}}
+            {{^isRelease}}
+                <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看问卷</a>
+            {{/isRelease}}
+        </td>
+    </tr>
+{{/list}}
+</tbody>
+<tfoot class="quest-footer">
+    <tr>
+        <td class="quest-cell cell-check">
+            <i class="fa fa-circle"></i>
+        </td>
+        <td class="quest-cell" colspan="5">全选<span class="oprea-btn">删除</span></td>
+    </tr>
+</tfoot>
+{{/notEmpty}}
+{{^notEmpty}}
+    <div class="create-container">
+        <span class="create-btn large">
+            <i class="fa fa-plus"></i>新建问卷
+        </span>
+    </div>
+{{/notEmpty}}

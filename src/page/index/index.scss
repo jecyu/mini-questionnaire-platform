@@ -2,12 +2,18 @@ $basecolor: #ed731d;
 $item1: #fdfdfd;
 $item2: #eee;
 $item3: #6ae661;
+$item4: #fff;
+$fontColor: #5f5f5f;
 
 @mixin setColorAndHover($baseColor) {
     // color: $baseColor;
     &:hover {
         background: lighten($baseColor, 40%);
     }
+}
+
+@mixin setShadow {
+    box-shadow: .1rem .1rem 1rem rgba(0, 0, 0, .4);
 }
 
 .page-wrap {
@@ -22,6 +28,7 @@ $item3: #6ae661;
     padding: 1rem;    
     border-collapse: collapse;
     font-size: 1.4rem;
+    color: $fontColor;
 
     .quest-item {
         @include setColorAndHover($basecolor);
@@ -44,17 +51,10 @@ $item3: #6ae661;
         }
 
         .cell-create {
+            padding-right: 1rem;
             text-align: right;
         }
 
-        .create-btn {
-            padding: .5rem 1rem;
-            border-radius: .2rem;
-
-            color: $item1;
-            background: $basecolor;
-            cursor: pointer;
-        }
         .fa {
             margin-right: 1rem;
         }
@@ -84,7 +84,7 @@ $item3: #6ae661;
             vertical-align: top;
         }
 
-        .oprea-btn {
+        .opera-btn {
             margin-left: 2rem;
         }
     }
@@ -104,7 +104,7 @@ $item3: #6ae661;
     }
 }
 
-.oprea-btn {
+.opera-btn {
     display: inline-block;
     width: 8rem;
     height: 2.5rem;
@@ -112,10 +112,51 @@ $item3: #6ae661;
     border: .1rem solid darken($item2, 20%);
     border-radius: .4rem;
 
+    color: $fontColor;
     text-align: center;
     line-height: 2.5rem;
     cursor: pointer;
     background: $item1;
+}
+
+.create-btn {
+    display: inline-block;
+    width: 12rem;
+    height: 3rem;
+    border-radius: .2rem;
+
+    text-align: center;    
+    line-height: 3rem;
+    color: $item1;
+    background: $basecolor;
+    cursor: pointer;
+}
+
+// 当前没有问卷时
+.create-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 108rem;
+    height: 40rem;
+    margin-top: 10rem;
+    border-radius: .5rem;
+    box-shadow: .1rem .1rem 1rem rgba(0, 0, 0, .4);
+    background: $item4;
+}
+.create-btn.large {
+    display: block;
+    height: 6rem;
+    width: 24rem;
+
+    text-align: center;
+    line-height: 6rem;
+    font-size: 2rem;
+
+    .fa-plus {
+        padding-right: 1rem;
+    }
 }
 
 
