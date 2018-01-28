@@ -1,9 +1,9 @@
 // 逻辑处理service负责ajax地址请求，index.js负责渲染、传参数
-    // 1.ajax获取问卷列表
-    // 2.ajax获取问卷详细信息 
+// 1.ajax获取问卷列表
+// 2.ajax获取问卷详细信息 
 
 let _mq = require('util/mq.js');
-    
+
 let _questionnaire = {
     // 获取问卷列表
     getQuestList: function(listParam, resolve, reject) {
@@ -12,8 +12,8 @@ let _questionnaire = {
             data: listParam,
             method: 'get',
             success: resolve,
-            error: reject          
-        });     
+            error: reject
+        });
     },
     // 
     getQuestDetail: function(questionnaireId, resolve, reject) {

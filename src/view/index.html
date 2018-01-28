@@ -7,13 +7,15 @@
         <title>问卷列表页</title>
 </head>
 
-<body>   
-    <%= require('html-loader!./layout/nav-sample.html')  %>
+<body>
+    <header class="index-header">
+        <%= require('html-loader!./layout/nav-sample.html')  %>
+    </header>
     <main>
         <div class="page-wrap">
-
-            <table class="questionnaire-list">
-                <!-- <thead class="quest-head">
+            <div class="table-container">
+                <table class="questionnaire-list">
+                    <!-- <thead class="quest-head">
                     <tr>
                         <th class="quest-cell cell-select">&nbsp;</th>
                         <th class="quest-cell cell-title">标题</th>
@@ -72,12 +74,13 @@
                         <td class="quest-cell" colspan="5">全选<span class="oprea-btn">删除</span></td>
                     </tr>
                 </tfoot> -->
-            </table>
-            <!-- <div class="create-container">
+                </table>
+                <!-- <div class="create-container">
                 <span class="create-btn large">
                     <i class="fa fa-plus"></i>新建问卷
                 </span>
             </div> -->
+            </div>
         </div>
     </main>
     <%= require('html-loader!./layout/footer.html')  %>

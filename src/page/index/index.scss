@@ -1,165 +1,160 @@
-$basecolor: #ed731d;
-$item1: #fdfdfd;
-$item2: #eee;
-$item3: #6ae661;
-$item4: #fff;
-$fontColor: #5f5f5f;
-
+$basecolor: hsl(25, 85%, 52%);
+$item1: hsl(0, 0%, 99%);
+$item2: hsl(0, 0%, 93%);
+$item3: hsl(116, 73%, 64%);
+$item4: hsl(0, 0%, 100%);
+$fontColor: hsl(0, 0%, 37%);
 @mixin setColorAndHover($baseColor) {
-    // color: $baseColor;
-    &:hover {
-        background: lighten($baseColor, 40%);
-    }
+  // color: $baseColor;
+  &:hover {
+    background: lighten($baseColor, 40%);
+  }
 }
 
 @mixin setShadow {
-    box-shadow: .1rem .1rem 1rem rgba(0, 0, 0, .4);
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.4);
+}
+
+.index-header {
+  position: fixed;
+  z-index: 99999;
+  width: 100%;
 }
 
 .page-wrap {
-    width: 108rem;
-    margin: 0 auto;
+  width: 108rem;
+  margin: 0 auto;
+  padding-top: 5rem;
 }
 
-.questionnaire-list  {
-    width: 100%;
-    // table-layout: fixed;
-    margin-bottom: 20rem;
-    padding: 1rem;    
-    border-collapse: collapse;
-    font-size: 1.4rem;
-    color: $fontColor;
-
-    .quest-item {
-        @include setColorAndHover($basecolor);
-        cursor: pointer;
-
-        .quest-cell {
-            &.release {
-                color: $item3;
-            }
-
-            .oprea-btn.active {
-                color: $item1;
-                background: $basecolor;
-            }
-        }
-    }
-    .quest-head {
-        .quest-cell {
-            font-weight: normal;
-        }
-
-        .cell-create {
-            padding-right: 1rem;
-            text-align: right;
-        }
-
-        .fa {
-            margin-right: 1rem;
-        }
-    }
-
-    .quest-body,
-    .quest-footer {
-        background: $item1;
-    }
-    
-    .quest-body  {
-        tr {
-            padding: 0 1rem;
-        }      
-        .quest-cell {
-            border-bottom: .2rem solid darken($item2, 5%);
-        }
-
-        .cell-oprea {
-            text-align: right;
-        }
-    }
-
-    .quest-footer  {
-        .quest-cell {
-            height: 10rem;
-            vertical-align: top;
-        }
-
-        .opera-btn {
-            margin-left: 2rem;
-        }
-    }
-
-    .quest-cell {
-        padding: 2rem 1rem;
-    }
-
-    .cell-check {
-        text-align: right;
-        color: darken($item2, 10%);
-        cursor: pointer;
-
-        .fa-circle-o {
-            color: $basecolor;
-        }
-    }
-}
-
-.opera-btn {
-    display: inline-block;
-    width: 8rem;
-    height: 2.5rem;
-    margin-right: 1rem;
-    border: .1rem solid darken($item2, 20%);
-    border-radius: .4rem;
-
-    color: $fontColor;
-    text-align: center;
-    line-height: 2.5rem;
+.questionnaire-list {
+  width: 100%;
+  // table-layout: fixed;
+  margin-bottom: 20rem;
+  padding: 1rem;
+  border-collapse: collapse;
+  font-size: 1.4rem;
+  color: $fontColor;
+  .quest-item {
+    @include setColorAndHover($basecolor);
     cursor: pointer;
+    .quest-cell {
+      &.release {
+        color: $item3;
+      }
+      .oprea-btn.active {
+        color: $item1;
+        background: $basecolor;
+      }
+    }
+  }
+  .quest-head {
+    .quest-cell {
+      font-weight: normal;
+    }
+    .cell-create {
+      padding-right: 1rem;
+      text-align: right;
+    }
+    .fa {
+      margin-right: 1rem;
+    }
+  }
+  .quest-body,
+  .quest-footer {
     background: $item1;
+  }
+  .quest-body {
+    tr {
+      padding: 0 1rem;
+      text-align: center;
+    }
+    .quest-cell {
+      border-bottom: 0.2rem solid darken($item2, 5%);
+    }
+    .cell-oprea {
+      text-align: right;
+    }
+  }
+  .quest-footer {
+    .quest-cell {
+      height: 10rem;
+      vertical-align: text-bottom;
+    }
+    .btn {
+      margin-left: 2rem;
+    }
+  }
+  .quest-cell {
+    padding: 2rem 1rem;
+  }
+  .cell-check {
+    text-align: right;
+    color: darken($item2, 10%);
+    cursor: pointer;
+    .fa-circle-o {
+      color: $basecolor;
+    }
+  }
+}
+
+.btn {
+  display: inline-block;
+  width: 8rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  border: 0.1rem solid darken($item2, 20%);
+  border-radius: 0.4rem;
+  color: $fontColor;
+  text-align: center;
+  line-height: 2.5rem;
+  cursor: pointer;
+  background: $item1;
+
+  &--is-disabled {
+    cursor: default;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    background-image: none;
+    box-shadow: none;
+    color: hsl(0, 0%, 20%);
+    background-color: hsl(0, 0%, 90%);
+  }
 }
 
 .create-btn {
-    display: inline-block;
-    width: 12rem;
-    height: 3rem;
-    border-radius: .2rem;
-
-    text-align: center;    
-    line-height: 3rem;
-    color: $item1;
-    background: $basecolor;
-    cursor: pointer;
+  display: inline-block;
+  width: 12rem;
+  height: 3rem;
+  border-radius: 0.2rem;
+  text-align: center;
+  line-height: 3rem;
+  color: $item1;
+  background: $basecolor;
+  cursor: pointer;
 }
 
 // 当前没有问卷时
 .create-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 108rem;
-    height: 40rem;
-    margin-top: 10rem;
-    border-radius: .5rem;
-    box-shadow: .1rem .1rem 1rem rgba(0, 0, 0, .4);
-    background: $item4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 108rem;
+  height: 40rem;
+  margin-top: 10rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.4);
+  background: $item4;
 }
+
 .create-btn.large {
-    display: block;
-    height: 6rem;
-    width: 24rem;
-
-    text-align: center;
-    line-height: 6rem;
-    font-size: 2rem;
-
-    .fa-plus {
-        padding-right: 1rem;
-    }
+  display: block;
+  height: 6rem;
+  width: 24rem;
+  text-align: center;
+  line-height: 6rem;
+  font-size: 2rem;
+  .fa-plus {
+    padding-right: 1rem;
+  }
 }
-
-
-
-
-

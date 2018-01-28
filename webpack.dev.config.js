@@ -84,7 +84,8 @@ let config = {
             util: path.join(__dirname, '/src/util'),
             component: path.join(__dirname, '/src/component'),
             service: path.join(__dirname, '/src/service'),
-            page: path.join(__dirname, '/src/page')
+            page: path.join(__dirname, '/src/page'),
+            mocks: path.join(__dirname, '/src/mocks')
         }
     },
     module: {

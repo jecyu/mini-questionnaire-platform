@@ -1,0 +1,50 @@
+html,
+body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  font: 1.4rem/1.5 arial Microsoft Yahei sans-serif;
+  line-height: 1.5;
+  background: $item1;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+body,
+div,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+iframe,
+thead,
+tbody,
+tfoot,
+input {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}

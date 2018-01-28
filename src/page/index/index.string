@@ -10,33 +10,41 @@
     </tr>
 </thead>
 <tbody class="quest-body">
-{{#list}}
-    <tr class="quest-item">
+{{#questionnaireList}}
+    <tr class="quest-item" data-quest-id="{{id}}">
         <td class="quest-cell cell-check">
-            <i class="fa fa-circle"></i>
+            <label class="quest-label">
+                <input type="checkbox" class="quest-select"></input>
+            </label>
         </td>
-        <td class="quest-cell">{{ctitle}}</td>
-        <td class="quest-cell">{{createTime}}</td>
-        <td class="quest-cell">{{statusQuest}}</td>
+        <td class="quest-cell">{{title}}</td>
+        <td class="quest-cell">{{releaseDateText}}</td>
+        {{#isRelease}}
+        <td class="quest-cell release">{{stateText}}</td>
         <td class="quest-cell cell-oprea" colspan="2">
-            <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">编辑</a>
-            <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">删除</a>
-            {{#isRelease}}
-            <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看数据</a>
-            {{/isRelease}}
-            {{^isRelease}}
-                <a class="opera-btn" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看问卷</a>
-            {{/isRelease}}
+                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看问卷</a>            
+                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看数据</a>
+        </td>                
+        {{/isRelease}}
+        {{^isRelease}}
+        <td class="quest-cell">{{stateText}}</td>
+        <td class="quest-cell cell-oprea" colspan="2">
+                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">编辑</a>
+                <a class="btn-delete btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">删除</a>
+                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看问卷</a>
         </td>
+        {{/isRelease}}
     </tr>
-{{/list}}
+{{/questionnaireList}}
 </tbody>
 <tfoot class="quest-footer">
     <tr>
         <td class="quest-cell cell-check">
-            <i class="fa fa-circle"></i>
+            <label>
+                <input type="checkbox" id="selectAll" class="quest-select-all"></input>
+            </label>
         </td>
-        <td class="quest-cell" colspan="5">全选<span class="oprea-btn">删除</span></td>
+        <td class="quest-cell" colspan="5"><label for="selectAll">全选</label><a class="btn btn-deleteAll btn--is-disabled">删除</a></td>
     </tr>
 </tfoot>
 {{/notEmpty}}
