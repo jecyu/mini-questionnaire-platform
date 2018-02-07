@@ -1,0 +1,132 @@
+<div class="question">
+  <div class="question__item js-question__item">
+    <h4 class="question__title">
+      <label class="question__title-order">Q1</label>
+      <input type="text" class="question__title-stem question__title-stem" value="单选题"></input>
+    </h4>
+    <p class="question__message">
+      <input class="question__message-checkbox" type="checkbox">
+      <label class="question__message-label" for="required">此题是否必填</label>
+    </p>
+    <ul class="question__option">
+      <li class="question__option-item">
+        <input class="question__option-radio" type="radio" name="single" disabled>
+        <label class="question__option-label" for="">
+          <input type="text" value="选项一">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon fa fa-trash-o"></i>删除</span>
+      </li>
+      <li class="question__option-item">
+        <input class="question__option-radio" type="radio" name="single" disabled>
+        <label class="question__option-label" for="">
+          <input class="question__option-input" type="text" value="选项二">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon fa fa-trash-o"></i>删除</span>
+      </li>
+    </ul>
+    <div class="question__action-buttons clearfix">
+      <p class="question__btn btn question__option-install left">
+        <i class="fa question__icon fa-plus-circle"></i>新增选项</p>
+      <ul class="right">
+        <li class="question__btn btn question__item-moveUp left">
+          <i class="fa question__icon fa-arrow-circle-o-up"></i>上移</li>
+        <li class="question__btn btn question__item-moveDown left">
+          <i class="fa question__icon fa-arrow-circle-o-down"></i>下移</li>
+        <li class="question__btn btn question__item-copy left">
+          <i class="fa question__icon fa-copy"></i>复用</li>
+        <li class="question__btn btn question__item-delete left">
+          <i class="fa question__icon fa-trash-o"></i>删除</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="question__item js-question__item">
+    <h4 class="question__title">
+      <label class="question__title-order">Q2</label>
+      <input type="text" class="question__title-stem" value="多选题"></input>
+    </h4>
+    <p class="question__message">
+      <input class="question__message-checkbox" id="required" type="checkbox">
+      <label class="question__message-label" for="required">此题是否必填</label>
+    </p>
+    <ul class="question__option">
+      <li class="question__option-item">
+        <input class="question__option-checkbox" type="checkbox" disabled>
+        <label class="question__option-label" for="">
+          <input type="text" value="选项一">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon  fa fa-trash-o"></i>删除</span>
+      </li>
+      <li class="question__option-item">
+        <input class="question__option-checkbox" type="checkbox" disabled>
+        <label class="question__option-label" for="">
+          <input type="text" value="选项二">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon  fa fa-trash-o"></i>删除</span>
+      </li>
+      <li class="question__option-item">
+        <input class="question__option-checkbox" type="checkbox" disabled>
+        <label class="question__option-label" for="">
+          <input type="text" value="选项三">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon  fa fa-trash-o"></i>删除</span>
+      </li>
+      <li class="question__option-item">
+        <input class="question__option-checkbox" type="checkbox" disabled>
+        <label class="question__option-label" for="">
+          <input type="text" value="选项四">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon  fa fa-trash-o"></i>删除</span>
+      </li>
+    </ul>
+    <div class="question__action-buttons clearfix">
+      <p class="question__btn btn question__option-install left">
+        <i class="fa question__icon fa-plus-circle"></i>新增选项</p>
+      <ul class="right">
+        <li class="question__btn btn question__item-moveUp left">
+          <i class="fa question__icon fa-arrow-circle-o-up"></i>上移</li>
+        <li class="question__btn btn question__item-moveDown left">
+          <i class="fa question__icon fa-arrow-circle-o-down"></i>下移</li>
+        <li class="question__btn btn question__item-copy left">
+          <i class="fa question__icon fa-copy"></i>复用</li>
+        <li class="question__btn btn question__item-delete left">
+          <i class="fa question__icon fa-trash-o"></i>删除</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="js-question__item question__item question__item-text">
+    <h4 class="question__title">
+      <label class="question__title-order">Q3</label>
+      <input type="text" class="question__title-stem" value="文本题"></input>
+    </h4>
+    <p class="question__message">
+      <input class="question__message-checkbox" id="required" type="checkbox">
+      <label class="question__message-label" for="required">此题是否必填</label>
+    </p>
+    <div class="question__option-item">
+      <textarea class="question__option-textarea" name="" id="" cols="30" rows="10" disabled>
+
+      </textarea>
+    </div>
+    <div class="question__action-buttons clearfix">
+      <ul class="right">
+        <li class="question__btn btn question__item-moveUp left">
+          <i class="fa question__icon fa-arrow-circle-o-up"></i>上移</li>
+        <li class="question__btn btn question__item-moveDown left">
+          <i class="fa question__icon fa-arrow-circle-o-down"></i>下移</li>
+        <li class="question__btn btn question__item-copy left">
+          <i class="fa question__icon fa-copy"></i>复用</li>
+        <li class="question__btn btn question__item-delete left">
+          <i class="fa question__icon fa-trash-o"></i>删除</li>
+      </ul>
+    </div>
+  </div>
+
+</div>

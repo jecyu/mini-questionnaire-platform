@@ -1,0 +1,43 @@
+/* common style */
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.inner-center {
+  width: 108rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.left {
+  float: left;
+  display: block;
+}
+
+.right {
+  float: right;
+  display: block;
+}
+
+.clearfix::after {
+  content: ".";
+  height: 0;
+  visibility: hidden;
+  display: table;
+  clear: both;
+}
+
+em,
+strong {
+  font-style: normal;
+  font-weight: normal;
+}
+
+input[type="text"] {
+  appearance: none;
+  box-shadow: none;
+  border: 0;
+  outline: none;
+}

@@ -4,6 +4,8 @@ $item2: hsl(0, 0%, 93%);
 $item3: hsl(116, 73%, 64%);
 $item4: hsl(0, 0%, 100%);
 $fontColor: hsl(0, 0%, 37%);
+
+@import "../common/styles/components/buttons.scss";
 @mixin setColorAndHover($baseColor) {
   // color: $baseColor;
   &:hover {
@@ -98,31 +100,7 @@ $fontColor: hsl(0, 0%, 37%);
   }
 }
 
-.btn {
-  display: inline-block;
-  width: 8rem;
-  height: 2.5rem;
-  margin-right: 1rem;
-  border: 0.1rem solid darken($item2, 20%);
-  border-radius: 0.4rem;
-  color: $fontColor;
-  text-align: center;
-  line-height: 2.5rem;
-  cursor: pointer;
-  background: $item1;
-
-  &--is-disabled {
-    cursor: default;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    background-image: none;
-    box-shadow: none;
-    color: hsl(0, 0%, 20%);
-    background-color: hsl(0, 0%, 90%);
-  }
-}
-
-.create-btn {
+.btn-create {
   display: inline-block;
   width: 12rem;
   height: 3rem;
@@ -132,9 +110,20 @@ $fontColor: hsl(0, 0%, 37%);
   color: $item1;
   background: $basecolor;
   cursor: pointer;
+
+  &--large {
+    @extend .btn-create;
+    height: 6rem;
+    width: 24rem;
+    line-height: 6rem;
+    font-size: 2rem;
+    .fa-plus {
+      padding-right: 1rem;
+    }
+  }
 }
 
-// 当前没有问卷时
+// When there is no questionnaire
 .create-container {
   display: flex;
   justify-content: center;
@@ -145,16 +134,4 @@ $fontColor: hsl(0, 0%, 37%);
   border-radius: 0.5rem;
   box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.4);
   background: $item4;
-}
-
-.create-btn.large {
-  display: block;
-  height: 6rem;
-  width: 24rem;
-  text-align: center;
-  line-height: 6rem;
-  font-size: 2rem;
-  .fa-plus {
-    padding-right: 1rem;
-  }
 }

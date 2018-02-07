@@ -1,3 +1,4 @@
+{{! 如果是非空的话}}
 {{#notEmpty}}
 <thead class="quest-head">
     <tr>
@@ -6,7 +7,7 @@
         <th class="quest-cell cell-date">时间</th>
         <th class="quest-cell cell-status">状态</th>
         <th class="quest-cell cell-opera">操作</th>
-        <th class="quest-cell cell-create"><span class="create-btn"><i class="fa fa-plus"></i>新建问卷</span></th>
+        <th class="quest-cell cell-create"><a href="./new-questionnaire.html" class="btn-create js-create-questionnaire"><i class="fa fa-plus"></i>新建问卷</a></th>
     </tr>
 </thead>
 <tbody class="quest-body">
@@ -50,8 +51,8 @@
 {{/notEmpty}}
 {{^notEmpty}}
     <div class="create-container">
-        <span class="create-btn large">
+        <a href="./new-questionnaire.html" class="js-create-questionnaire btn-create btn-create--large">
             <i class="fa fa-plus"></i>新建问卷
-        </span>
+        </a>
     </div>
 {{/notEmpty}}

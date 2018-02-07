@@ -4,28 +4,27 @@
  * @Modified By: JeCyu 
  * @Last Modified time: 2017-11-09 12:32:52 pm 
  */
- $basecolor: rgb(237, 115, 29);
- $item1: rgb(238, 238, 238);
+$basecolor: rgb(237, 115, 29);
+$item1: rgb(238, 238, 238);
 
 /* footer */
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  // position: fixed;
+  //   bottom: 0;
+  left: 0;
+  right: 0;
 
-    font-size: 1.8rem;
-    text-align: center;
-    color: #fff;
-    background: darken($basecolor, 5%);    
+  font-size: 1.8rem;
+  text-align: center;
+  color: #fff;
+  background: darken($basecolor, 5%);
 }
 
 .footer .footer-above {
-    height: 10rem;  
+  height: 10rem;
 }
 
 .footer .footer-below {
-    height: 10rem;  
-    line-height: 10rem;  
+  height: 10rem;
+  line-height: 10rem;
 }
-

@@ -48,9 +48,17 @@ let page = {
       }
     });
 
-    /*
-     * 单条问卷的选择、取消选择
-     */
+    // 获取到所有的问卷条目
+    var quest_items = $(".quest-item");
+    // 取得所有的 问卷select 按钮
+    var quest_selects = $(".quest-select");
+    // 取得全选 select 按钮
+    var quest_selectAll = $(".quest-select-all");
+    // 取得全选的 “删除” 按钮
+    let btn_deleteAll = $(".quest-footer").find(".btn-deleteAll");
+
+    /* === 单条问卷的选择、取消选择 === */
+
     $("body").on("click", ".quest-select", function(event) {
       // 禁止冒泡
       event.stopPropagation();
@@ -58,14 +66,6 @@ let page = {
       let $this = $(this);
       // 取得当前问卷的 id
       let quest_id = $this.parents(".quest-item").data("quest-id");
-      // 取得所有的 问卷select 按钮
-      let quest_selects = $(".quest-select");
-      // 取得全选 select 按钮
-      let quest_selectAll = $(".quest-select-all");
-      // 取得全选的 “删除” 按钮
-      let quest_delAll = quest_selectAll
-        .parents(".quest-footer")
-        .find(".btn-deleteAll");
       // 全部选择标识符
       let is_selectAll = true;
 
@@ -79,10 +79,12 @@ let page = {
       // 若全选，则给予全选按钮 checked
       if (is_selectAll) {
         quest_selectAll.prop("checked", true);
-        quest_delAll.disable(false);
+        btn_deleteAll.disable(false);
+        // 实现全选删除
+        btn_deleteAll.bind("click", _this.delAllQuest);
       } else {
         quest_selectAll.prop("checked", false);
-        quest_delAll.disable(true);
+        btn_deleteAll.disable(true);
       }
 
       // 找到该条问卷操作按钮
@@ -102,18 +104,10 @@ let page = {
       });
     });
 
-    /**
-     * 问卷的全选、取消全选
-     * 全选删除逻辑
-     */
+    /* === 问卷的全选、取消全选与全选删除逻辑 === */
     $("body").on("click", ".quest-select-all", function(event) {
       let $this = $(this);
       event.stopPropagation();
-
-      // 找到所有的选择条目选框
-      let quest_selects = $(".quest-select");
-      // 获取到所有的问卷条目
-      let quest_items = $(".quest-item");
       // 找到所有的操作按钮
       let opera_btns = $(".questionnaire-list").find(".btn");
 
@@ -128,23 +122,8 @@ let page = {
           $(this).prop("checked", true);
         });
 
-        // 实现全选删除
-        let btn_deleteAll = $(".quest-footer").find(".btn-deleteAll");
-        btn_deleteAll.click(function delAllQuest() {
-          // 二次确认是否删除
-          if (!confirm("是否删除所有问卷？")) return false;
-          quest_items.each(function() {
-            // 从 DOM 中移除
-            $(this).remove();
-            let quest_id = $(this).data("quest-id");
-            // 从 localStorge 中移除
-            _store.deleteQuestionnaire(quest_id);
-            // console.log(_store.fetch());
-          });
-
-          // 重新获取问卷列表，重新渲染视图
-          _this.loadList();
-        });
+        // 实现删除所有问卷
+        btn_deleteAll.bind("click", _this.delAllQuest);
       } else {
         opera_btns.each(function() {
           $(this).disable(true);
@@ -156,9 +135,7 @@ let page = {
       }
     });
 
-    /*
-     * 实现单条问卷删除
-     */
+    /* === 实现单条问卷删除 === */
 
     $("body").on("click", ".btn-delete", function delQuest(event) {
       // 禁用 a 的默认行为
@@ -190,7 +167,20 @@ let page = {
         _this.loadList();
       }
     });
+
+    /* === 新建问卷 === */
   },
+  /**
+   * 新建问卷
+   */
+  // prepareCreateNewQuest: function() {
+  //   // 绑定单击监听
+  //   $(document).on("click", ".js-create-questionnaire", function createQuest() {
+  //     // 存储到 localstorage 中
+  //     _store.addQuestionnaire(1);
+  //     console.log(_store.data.questionnaireList);
+  //   });
+  // },
   /**
    * 加载问卷列表
    */
@@ -232,6 +222,26 @@ let page = {
         data.questionnaireList[i].releaseDate
       );
     }
+  },
+  /**
+   * 删除所有问卷
+   */
+  delAllQuest: function() {
+    var _this = this; // 这个 this 代表被绑定的 DOM 元素，而不是 page
+    // 获取到所有的问卷条目
+    let quest_items = $(".quest-item");
+    // 二次确认是否删除
+    if (!confirm("是否删除所有问卷？")) return false;
+    quest_items.each(function() {
+      // 从 DOM 中移除
+      $(this).remove();
+      let quest_id = $(this).data("quest-id");
+      // 从 localStorge 中移除
+      _store.deleteQuestionnaire(quest_id);
+      // console.log(_store.fetch());
+    });
+    // 重新获取问卷列表，重新渲染视图
+    page.loadList();
   }
 };
 
