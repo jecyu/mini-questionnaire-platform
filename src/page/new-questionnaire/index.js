@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:21 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-07 23:46:54
+ * @Last Modified time: 2018-02-08 23:23:20
  */
 "use strict";
 
@@ -140,7 +140,7 @@ let page = {
     var question_order = question.order;
     var question_btn_html = `   <li class="question__btn btn question__item-moveUp left">
                       <i class="fa question__icon fa-arrow-circle-o-up"></i>上移</li>
-                    <li class="question__btn btn question__item-moveUp left">
+                    <li class="question__btn btn question__item-moveDown left">
                       <i class="fa question__icon fa-arrow-circle-o-down"></i>下移</li>`;
     // 判断是否是第一题
     // if (question_order === 1) {
@@ -332,7 +332,7 @@ let page = {
    * 准备操作按钮
    */
   prepareQuestionActionBtn: function (question) {
-    // 存储 page 对象 
+    // 存储 page 对象
     var _this = this;
     // 取得当前题目的 order，但是后面删除题目，会更新这个值。需要随时获取
     let questioin_order = question.order;
@@ -341,18 +341,21 @@ let page = {
     if ($question_action_btn.length === 0) return false;
 
     /* === 题目上移 === */
-    $question_action_btn.on("click", ".question__item-moveUp", function (event) {
+    $question_action_btn.find(".question__item-moveUp").
+    unbind('click').bind('click', function (event) {
       // 禁止冒泡
       event.stopPropagation();
       // 找到当前题目
       let $current_question = $(this).parents(".question__item");
-      // 取得当前题目的顺序，这里取出来是字符串，所以比较的时候，使用 ==
-      let questioin_order = $current_question.attr('data-order');
+      // 取得当前题目的顺序，这里取出来是字符串
+      let questioin_order = parseInt($current_question.attr("data-order"));
       // 取得所有题目
-      let questions = $('.question').children('.question__item');
+      let questions = $(".question").children(".question__item");
 
-      if (questioin_order == 1) { // 第一题
-        alert('当前题目是第一题，不能上移哟！');
+      if (questioin_order === 1) {
+        console.log('第一题？');
+        // 第一题
+        alert("当前题目是第一题，不能上移哟！");
       } else {
         // 找到该题目的上一题
         let $prev_question = $current_question.prev();
@@ -364,30 +367,32 @@ let page = {
     });
 
     /* === 题目下移 === */
-    $question_action_btn.on("click", ".question__item-moveDown", function (event) {
-      // 禁止冒泡
-      event.stopPropagation();
+    $question_action_btn.find(".question__item-moveDown").
+    unbind('click').bind('click', function (event) {
       // 找到当前题目
       let $current_question = $(this).parents(".question__item");
       // 取得当前题目的顺序，这里取出来是字符串，所以比较的时候，使用 ==
-      let questioin_order = $current_question.attr('data-order');
+      let questioin_order = parseInt($current_question.attr("data-order"));
       // 取得所有题目
-      let questions = $('.question').children('.question__item');
+      let questions = $(".question").children(".question__item");
 
-      if (questioin_order == questions.length) { // 最后一题
-        alert('当前题目是最后一题，不能下移哟！');
+      if (questioin_order === questions.length) {
+        // 最后一题
+        alert("当前题目是最后一题，不能下移哟！");
       } else {
         // 找到当前题目的下一题
         let $next_question = $current_question.next();
-        // 移动当前题目到下一题的后面 
-        $current_question.after($next_question);
+        // 移动当前题目到下一题的后面
+        $next_question.after($current_question);
         // 更新问题的 order
         _this.updateQuestionOrder();
       }
+
     });
 
     /* === 题目复用 === */
-    $question_action_btn.on("click", ".question__item-copy", function () {
+    $question_action_btn.find(".question__item-copy").
+    unbind('click').bind('click', function (event) {
       // 找到当前题目
       let $current_question = $(this).parents(".question__item");
       // 复制当前的题目及它的所有子元素、绑定事件
@@ -396,18 +401,25 @@ let page = {
       $current_question.after($clone_question);
       // 更新问题的 order
       _this.updateQuestionOrder();
+
     });
 
     /* === 题目删除 ==== */
-
     // 从问题列表中删除
-    $question_action_btn.on("click", ".question__item-delete", function () {
+    $question_action_btn.find(".question__item-delete").
+    unbind('click').bind('click', function (event) {
       $(this)
         .parents(".question__item") // 找到当前的题目
         .remove(); // 从 DOM 中移除
       // 更新问题的 order
       _this.updateQuestionOrder();
+
+      // 防止触发两次单击事件
+      return false;
     });
+
+    /* === 新增选项 === */
+    /* === 删除选项 === */
   },
 
   /**
@@ -449,9 +461,9 @@ let page = {
       order = questions.length + 1;
       // 更新所有问题的 order
       questions.each(function (index) {
-        let order = 'Q' + (index + 1);
+        let order = "Q" + (index + 1);
         // 同时更新 data-order 的值
-        $(this).attr('data-order', (index + 1));
+        $(this).attr("data-order", index + 1);
         $(this)
           .find(".question__title-order") // 找到问题顺序标签
           .html(order); // 改变它的 nodeValue 值
