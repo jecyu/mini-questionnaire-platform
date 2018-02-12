@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:27 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-04 16:11:55
+ * @Last Modified time: 2018-02-09 23:56:06
  */
 
 @import "../common/styles/components/buttons.scss";
@@ -180,6 +180,7 @@ $dark-gray: hsl(0, 0%, 37%);
 
 // Operating btn
 .question__action-buttons {
+  margin-top: 2rem;
   .question__option-install {
     margin-left: 3rem;
   }

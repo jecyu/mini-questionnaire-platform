@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:21 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-08 23:23:20
+ * @Last Modified time: 2018-02-12 23:35:35
  */
 "use strict";
 
@@ -21,18 +21,19 @@ let templateIndex = require("./index.string");
 let page = {
   data: {},
   // 初始化
-  init: function () {
+  init: function() {
     this.onLoad();
   },
-  onLoad: function () {
+  onLoad: function() {
     this.bindEvent();
-  },
-  bindEvent: function () {
-    // 存储 page 对象
-    var _this = this;
 
-    /* ======================== 日历组件处理 ==================== */
-    // 初始化日历组件
+    let new_id = _store.fetch().questionnaireList.length;
+    /* === 新建问卷 === */
+    this.data.new_quest_id = _store.addQuestionnaire(1, new_id);
+    // 打印本地数据
+    console.log(_store.fetch().questionnaireList);
+
+    /* === 初始化日历组件 === */
     var datepicker = $("#datepicker");
     datepicker.datepicker({
       monthNames: [
@@ -50,11 +51,12 @@ let page = {
       ],
       dateFormat: "yy-mm-dd"
     });
+  },
+  bindEvent: function() {
+    // 存储 page 对象
+    var _this = this;
 
-    // 获得当前的日期，填充到输入框中
-    let current_date = datepicker.datepicker("getDate");
-    // console.log(current_date);
-    datepicker.attr("value", current_date);
+    /* ======================== 日历组件处理 ==================== */
 
     /* ===================== 问卷题目的处理 ==================== */
 
@@ -71,24 +73,22 @@ let page = {
       $btns_qtype.toggle();
     });
 
-    /* === 新建问卷 === */
-    _store.addQuestionnaire(1);
-
     /* === 添加单选题 === */
-    $btns_qtype.on("click", "#js-single", function () {
+    $btns_qtype.on("click", "#js-single", function() {
       // 声明一个问题对象
       let question = {
         order: _this.updateQuestionOrder(),
         stem: "单选题",
         qtype: "single",
         required: false,
-        options: [{
+        options: [
+          {
             id: 1,
-            content: "选项一"
+            content: "选项1"
           },
           {
             id: 2,
-            content: "选项二"
+            content: "选项2"
           }
         ]
       };
@@ -96,28 +96,29 @@ let page = {
     });
 
     /* === 添加多选题 === */
-    $btns_qtype.on("click", "#js-multi", function () {
+    $btns_qtype.on("click", "#js-multi", function() {
       // 声明一个问题对象
       let question = {
         order: _this.updateQuestionOrder(),
         stem: "多选题",
         qtype: "multi",
         required: false,
-        options: [{
+        options: [
+          {
             id: 1,
-            content: "选项一"
+            content: "选项1"
           },
           {
             id: 2,
-            content: "选项二"
+            content: "选项2"
           }
         ]
-      }; // 顺序为问题的长度 + 1
+      };
       _this.addMultiType(question);
     });
 
     /* === 添加文本题 === */
-    $btns_qtype.on("click", "#js-textarea", function () {
+    $btns_qtype.on("click", "#js-textarea", function() {
       // 声明一个问题对象
       let question = {
         order: _this.updateQuestionOrder(),
@@ -125,15 +126,35 @@ let page = {
         qtype: "text",
         required: false,
         options: []
-      }; // 顺序为问题的长度 + 1
+      };
       _this.addTextType(question);
+    });
+
+    /* ========================== 保存问卷 ================================ */
+    $(".mod-quest__foot").on("click", ".js-btn--save", function() {
+      // 保存问卷
+      _this.saveQuestionnaire();
+    });
+
+    /* ========================== 发布问卷 ================================ */
+    $(".mod-quest__foot").on("click", ".js-btn--submit", function() {
+      // 取得当前的截至日期
+      const deadline_date = $("#datepicker").val();
+      // 如果不满足截止日期大于当前日期，则返回 false
+      if (!_this.isProperDate(deadline_date)) {
+        alert("问卷截止日期不能小于当前日期哦！");
+        return false;
+      }
+      // 发布问卷
+      _this.releaseQuestionnaire();
+      console.log(_store.fetch().questionnaireList);
     });
   },
   /**
    * 添加单选题
    * @param {string} question_order 问题顺序
    */
-  addSingleType: function (question) {
+  addSingleType: function(question) {
     var _this = this;
 
     // 该题的顺序
@@ -172,7 +193,7 @@ let page = {
                   <li class="question__option-item">
                     <input class="question__option-radio" type="radio" name="single" disabled>
                     <label class="question__option-label" for="">
-                      <input type="text" value="选项一">
+                      <input class="question__option-input" type="text" value="选项1">
                     </label>
                     <span class="question__btn btn question__option-del">
                       <i class="question__icon fa fa-trash-o"></i>删除</span>
@@ -180,7 +201,7 @@ let page = {
                   <li class="question__option-item">
                     <input class="question__option-radio" type="radio" name="single" disabled>
                     <label class="question__option-label" for="">
-                      <input class="question__option-input" type="text" value="选项二">
+                      <input class="question__option-input" type="text" value="选项2">
                     </label>
                     <span class="question__btn btn question__option-del">
                       <i class="question__icon fa fa-trash-o"></i>删除</span>
@@ -211,7 +232,7 @@ let page = {
   /**
    * 添加多选题
    */
-  addMultiType: function (question) {
+  addMultiType: function(question) {
     var _this = this;
 
     // 该题的顺序
@@ -232,7 +253,7 @@ let page = {
                   <li class="question__option-item">
                     <input class="question__option-checkbox" type="checkbox" disabled>
                     <label class="question__option-label" for="">
-                      <input type="text" value="选项一">
+                      <input class="question__option-input" type="text" value="选项1">
                     </label>
                     <span class="question__btn btn question__option-del">
                       <i class="question__icon  fa fa-trash-o"></i>删除</span>
@@ -240,7 +261,7 @@ let page = {
                   <li class="question__option-item">
                     <input class="question__option-checkbox" type="checkbox" disabled>
                     <label class="question__option-label" for="">
-                      <input type="text" value="选项二">
+                      <input class="question__option-input" type="text" value="选项2">
                     </label>
                     <span class="question__btn btn question__option-del">
                       <i class="question__icon  fa fa-trash-o"></i>删除</span>
@@ -248,7 +269,7 @@ let page = {
                   <li class="question__option-item">
                     <input class="question__option-checkbox" type="checkbox" disabled>
                     <label class="question__option-label" for="">
-                      <input type="text" value="选项三">
+                      <input class="question__option-input" type="text" value="选项3">
                     </label>
                     <span class="question__btn btn question__option-del">
                       <i class="question__icon  fa fa-trash-o"></i>删除</span>
@@ -256,7 +277,7 @@ let page = {
                   <li class="question__option-item">
                     <input class="question__option-checkbox" type="checkbox" disabled>
                     <label class="question__option-label" for="">
-                      <input type="text" value="选项四">
+                      <input class="question__option-input" type="text" value="选项4">
                     </label>
                     <span class="question__btn btn question__option-del">
                       <i class="question__icon  fa fa-trash-o"></i>删除</span>
@@ -287,7 +308,7 @@ let page = {
   /**
    * 添加文本题
    */
-  addTextType: function (question) {
+  addTextType: function(question) {
     var _this = this;
     // 该题的顺序
     var question_order = "Q" + question.order;
@@ -330,114 +351,201 @@ let page = {
   },
   /**
    * 准备操作按钮
+   * @param {object} question 新增的问题
    */
-  prepareQuestionActionBtn: function (question) {
+  prepareQuestionActionBtn: function(question) {
     // 存储 page 对象
     var _this = this;
     // 取得当前题目的 order，但是后面删除题目，会更新这个值。需要随时获取
     let questioin_order = question.order;
+    let question__type = question.qtype;
     // 取得所有的问题操作按钮容器
-    let $question_action_btn = $(".question__action-buttons");
+    const $question_action_btn = $(".question__action-buttons");
     if ($question_action_btn.length === 0) return false;
 
-    /* === 题目上移 === */
-    $question_action_btn.find(".question__item-moveUp").
-    unbind('click').bind('click', function (event) {
-      // 禁止冒泡
-      event.stopPropagation();
-      // 找到当前题目
-      let $current_question = $(this).parents(".question__item");
-      // 取得当前题目的顺序，这里取出来是字符串
-      let questioin_order = parseInt($current_question.attr("data-order"));
-      // 取得所有题目
-      let questions = $(".question").children(".question__item");
+    /* ====================== 题目上移 ====================== */
+    $question_action_btn
+      .find(".question__item-moveUp")
+      .unbind("click")
+      .bind("click", function(event) {
+        // 禁止冒泡
+        event.stopPropagation();
+        // 找到当前题目
+        let $current_question = $(this).parents(".question__item");
+        // 取得当前题目的顺序，这里取出来是字符串
+        let questioin_order = parseInt($current_question.attr("data-order"));
+        // 取得所有题目
+        let questions = $(".question").children(".question__item");
 
-      if (questioin_order === 1) {
-        console.log('第一题？');
-        // 第一题
-        alert("当前题目是第一题，不能上移哟！");
-      } else {
-        // 找到该题目的上一题
-        let $prev_question = $current_question.prev();
-        // 移动当前题目到上一题的前面
-        $current_question.after($prev_question);
+        if (questioin_order === 1) {
+          console.log("第一题？");
+          // 第一题
+          alert("当前题目是第一题，不能上移哟！");
+        } else {
+          // 找到该题目的上一题
+          let $prev_question = $current_question.prev();
+          // 移动当前题目到上一题的前面
+          $current_question.after($prev_question);
+          // 更新问题的 order
+          _this.updateQuestionOrder();
+        }
+      });
+
+    /* ====================== 题目下移 ==================== */
+    $question_action_btn
+      .find(".question__item-moveDown")
+      .unbind("click")
+      .bind("click", function(event) {
+        // 找到当前题目
+        let $current_question = $(this).parents(".question__item");
+        // 取得当前题目的顺序，这里取出来是字符串，所以比较的时候，使用 ==
+        let questioin_order = parseInt($current_question.attr("data-order"));
+        // 取得所有题目
+        let questions = $(".question").children(".question__item");
+
+        if (questioin_order === questions.length) {
+          // 最后一题
+          alert("当前题目是最后一题，不能下移哟！");
+        } else {
+          // 找到当前题目的下一题
+          let $next_question = $current_question.next();
+          // 移动当前题目到下一题的后面
+          $next_question.after($current_question);
+          // 更新问题的 order
+          _this.updateQuestionOrder();
+        }
+      });
+
+    /* ===================== 题目复用 ========================== */
+    $question_action_btn
+      .find(".question__item-copy")
+      .unbind("click")
+      .bind("click", function(event) {
+        // 找到当前题目
+        let $current_question = $(this).parents(".question__item");
+        // 复制当前的题目及它的所有子元素、绑定事件
+        let $clone_question = $current_question.clone(true, true);
+        // 插入到该题目的后面
+        $current_question.after($clone_question);
         // 更新问题的 order
         _this.updateQuestionOrder();
-      }
-    });
+      });
 
-    /* === 题目下移 === */
-    $question_action_btn.find(".question__item-moveDown").
-    unbind('click').bind('click', function (event) {
-      // 找到当前题目
-      let $current_question = $(this).parents(".question__item");
-      // 取得当前题目的顺序，这里取出来是字符串，所以比较的时候，使用 ==
-      let questioin_order = parseInt($current_question.attr("data-order"));
-      // 取得所有题目
-      let questions = $(".question").children(".question__item");
+    /* =================== 题目删除 ========================= */
 
-      if (questioin_order === questions.length) {
-        // 最后一题
-        alert("当前题目是最后一题，不能下移哟！");
-      } else {
-        // 找到当前题目的下一题
-        let $next_question = $current_question.next();
-        // 移动当前题目到下一题的后面
-        $next_question.after($current_question);
-        // 更新问题的 order
-        _this.updateQuestionOrder();
-      }
-
-    });
-
-    /* === 题目复用 === */
-    $question_action_btn.find(".question__item-copy").
-    unbind('click').bind('click', function (event) {
-      // 找到当前题目
-      let $current_question = $(this).parents(".question__item");
-      // 复制当前的题目及它的所有子元素、绑定事件
-      let $clone_question = $current_question.clone(true, true);
-      // 插入到该题目的后面
-      $current_question.after($clone_question);
-      // 更新问题的 order
-      _this.updateQuestionOrder();
-
-    });
-
-    /* === 题目删除 ==== */
     // 从问题列表中删除
-    $question_action_btn.find(".question__item-delete").
-    unbind('click').bind('click', function (event) {
+    $question_action_btn
+      .find(".question__item-delete")
+      .unbind("click") // 防止触发两次单击事件
+      .bind("click", function(event) {
+        $(this)
+          .parents(".question__item") // 找到当前的题目
+          .remove(); // 从 DOM 中移除
+        // 更新问题的 order
+        _this.updateQuestionOrder();
+      });
+
+    /* ============================ 删除选项 ======================== */
+    _this.deleteOption();
+
+    /* ========================= 新增选项 ============================== */
+    // 单选题的选项字符串模版
+    let single_optionHtml = ``;
+    let single_option = ``;
+    // 找到新增选项的按钮
+    let option_install_btns = $(".question__option-install");
+    // 选项字符串数组（把多项和单选模版放到数组里 ）
+    const option_html_object = {
+      single: "",
+      multi: "",
+      order: 0
+    };
+    // option_html_object.single = ` <li class="question__option-item">
+    //     <input class="question__option-radio" type="radio" name="single" disabled>
+    //     <label class="question__option-label" for="">
+    //       <input type="text" value="${'选项' + option_html_object.order}">
+    //     </label>
+    //     <span class="question__btn btn question__option-del">
+    //       <i class="question__icon fa fa-trash-o"></i>删除</span>
+    //   </li>`;
+    // option_html_object.multi = `     <li class="question__option-item">
+    //     <input class="question__option-checkbox" type="checkbox" disabled>
+    //     <label class="question__option-label" for="">
+    //       <input type="text" value="${'选项' + option_html_object.order}">
+    //     </label>
+    //     <span class="question__btn btn question__option-del">
+    //       <i class="question__icon  fa fa-trash-o"></i>删除</span>
+    //   </li>`;
+
+    // 绑定单击新增选项事件
+    option_install_btns.each(function(index) {
       $(this)
-        .parents(".question__item") // 找到当前的题目
-        .remove(); // 从 DOM 中移除
-      // 更新问题的 order
-      _this.updateQuestionOrder();
+        .unbind("click") // 防止二次触发
+        .bind("click", function() {
+          // 取得当前所有选项
+          let options = $(this)
+            .parents(".question__action-buttons")
+            .siblings(".question__option") //  找到选项的容器
+            .children(); // 取得里面的子元素
+          // 更新选项的顺序
+          option_html_object.order = options.length + 1;
 
-      // 防止触发两次单击事件
-      return false;
+          // 声明一个模版字符串
+          let option_html = "";
+          // 判断当前的类型
+          // 单选题
+          if (question__type === "single") {
+            option_html = ` <li class="question__option-item">
+        <input class="question__option-radio" type="radio" name="single" disabled>
+        <label class="question__option-label" for="">
+          <input class="question__option-input" type="text" value="${"选项" +
+            option_html_object.order}">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon fa fa-trash-o"></i>删除</span>
+      </li>`;
+          }
+          // 多选题
+          if (question__type === "multi") {
+            option_html = `     <li class="question__option-item">
+        <input class="question__option-checkbox" type="checkbox" disabled>
+        <label class="question__option-label" for="">
+          <input class="question__option-input" type="text" value="${"选项" +
+            option_html_object.order}">
+        </label>
+        <span class="question__btn btn question__option-del">
+          <i class="question__icon  fa fa-trash-o"></i>删除</span>
+      </li>`;
+          }
+
+          // 找到当前选项的父容器
+          $(this)
+            .parents(".question__action-buttons")
+            .siblings(".question__option") // 找到选项的容器
+            .append(option_html); // 插入新的选项
+
+          // 绑定选项的单击删除事件
+          _this.deleteOption();
+        });
     });
-
-    /* === 新增选项 === */
-    /* === 删除选项 === */
   },
 
   /**
    * 题目的移入移出事件
    */
-  questionMouseEvent: function () {
+  questionMouseEvent: function() {
     // 找到每道题目
     let question_item = $(".js-question__item");
     if (question_item.length === 0) return false;
     $(".question__btn") // 找到所有的操作按钮
       .css("visibility", "hidden"); // 显示
     // 鼠标移入，显示出该题目相关的操作按钮
-    question_item.mouseover(function () {
+    question_item.mouseover(function() {
       $(this)
         .find(".question__btn") // 找到所有的操作按钮
         .css("visibility", "visible"); // 显示
     });
-    question_item.mouseout(function () {
+    question_item.mouseout(function() {
       $(this)
         .find(".question__btn") // 找到所有的操作按钮
         .css("visibility", "hidden"); // 显示
@@ -446,7 +554,7 @@ let page = {
   /**
    * 更新当前题目的顺序
    */
-  updateQuestionOrder: function () {
+  updateQuestionOrder: function() {
     // 1. 查询当前的问题的数量
     // 2. 如果为0，则返回 order = 1
     // 3.1 如果不为0，则返回当前 order = sum
@@ -460,7 +568,7 @@ let page = {
     } else {
       order = questions.length + 1;
       // 更新所有问题的 order
-      questions.each(function (index) {
+      questions.each(function(index) {
         let order = "Q" + (index + 1);
         // 同时更新 data-order 的值
         $(this).attr("data-order", index + 1);
@@ -472,18 +580,193 @@ let page = {
 
     return order;
   },
+
   /**
-   * 更新选项
+   * 删除选项
    */
+  deleteOption: function() {
+    // 存储 page 对象
+    const _this = this;
+    // 找到删除选项的按钮
+    let option_delete_btns = $(".question__option-del");
+
+    // 绑定单击删除选项事件
+    option_delete_btns.each(function(index) {
+      $(this)
+        .unbind("click") // 防止二次触发
+        .bind("click", function() {
+          // 找到它的父元素选项
+          let $cur_option = $(this).parent();
+          // 从 DOM 树中移除
+          $cur_option.remove();
+        });
+    });
+  },
   /**
-   * 日期的处理
+   * 更新当前选项的 id
+   * @param {object} question 当前问题
    */
+  updateOptionId: function(question) {
+    // 1. 查询当前的选项的数量。==》不用更新，直接保存问卷或发布问卷存储即可
+    // 2. 如果为0，则返回 id = 1
+    // 3.1 如果不为0，则返回当前 id = sum
+    // 3.2 如果不为0，重置当前问题所有选项 的 id 值，从 1 开始依次赋值，更新。
+    // 可以适用于 新增、删除选项
+    let options = question.children(".question__option-item");
+    // 声明选项的顺序
+    let option_id = 0;
+    if (options.length <= 0) {
+      option_id = 1;
+    } else {
+      option_id = options.length + 1;
+      // 更新所有问题的 order
+      options.each(function(index) {
+        // let option_id = "选项" + (index + 1);
+        // 更新 data-id 的值
+        $(this).attr("data-id", index + 1);
+      });
+    }
+
+    return option_id;
+  },
+
   /**
-   * 加载当前的问题列表
+   * 判断当前截至日期的正确性
+   * @param {object} +deadlineDate 截至日期
+   * @returns {boolean} 布尔值
    */
-  loadQuestionList: function () {}
+  isProperDate: function(deadlineDate) {
+    // 分别存进deadline数组中
+    const deadline = deadlineDate.split("-"),
+      deadline_yy = deadline[0],
+      deadline_mm = deadline[1],
+      deadline_dd = deadline[2];
+    // 取得当前日期
+    const now = new Date(),
+      yy = now.getFullYear(),
+      mm = now.getMonth() + 1,
+      dd = now.getDate();
+
+    // 判断是否早于当前日期
+    if (
+      deadline_yy < yy ||
+      (deadline_yy == yy && deadline_mm < mm) ||
+      (deadline_yy == yy && deadline_mm == mm && deadline_dd < dd)
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+  /**
+   * 保存问卷
+   */
+  saveQuestionnaire: function() {
+    const _this = this;
+    // 1.从 localStorage 中获取当前新建的问卷
+    // let current_quest =
+    //   _store.data.questionnaireList[_store.data.questionnaireList.length - 1];
+    // 定义一个问题列表
+    let questionList = [];
+
+    // 2.存储当前问卷标题 title
+    let quest_title = $(".mod-quest .mod-quest__title").val();
+    // current_quest.title = quest_title;
+
+    // 3.存储问卷截至日期 deadline
+    // 取得当前的截至日期
+    const deadline_date = $("#datepicker").val();
+    // current_quest.deadline = deadline_date;
+
+    // 4.存储问卷问题列表 questionList
+
+    // 4.1 遍历该问卷所有题目
+    // 取得所有题目
+    let questions = $(".question .js-question__item");
+
+    /* === 遍历所有题目 === */
+    questions.each(function() {
+      // 新建一个问题对象
+      let question = {
+        order: 1,
+        stem: "",
+        qtype: "",
+        required: false,
+        options: []
+      };
+
+      // 存储当前题目的顺序
+      question.order = $(this).attr("data-order");
+      // 存储当前题目标题
+      questions.stem = $(this)
+        .find(".question__title-stem") // 找到当前题目的标题
+        .val(); // 取得输入框里的 值
+      // 存储当前题目的类型
+      question.qtype = $(this).attr("data-qtype");
+      // 存储当前题目的必填状态
+      if (
+        $(this)
+          .find("input.question__message-checkbox") // 取得复选框
+          .is(":checked")
+      ) {
+        // 是否选中
+        question.required = true;
+      } else {
+        question.required = false;
+      }
+      // 存储当前题目的选项
+      let question_options = $(this).find(".question__option-item");
+      /* === 遍历所有选项 === */
+      question_options.each(function(index) {
+        // 新建一个选项对象
+        let option = {
+          id: 1,
+          content: ""
+        };
+        option.id = index + 1;
+        option.content = $(this)
+          .find(".question__option-input") // 找到选项的输入框
+          .val(); // 取得输入框里的值
+
+        // 存储当前题目的选项中
+        // 存储进选项容器
+        question.options[question.options.length] = option;
+      });
+
+      // 把当前问题存储进当前问卷中
+      // current_quest.questionList.push(question);
+      questionList.push(question);
+    });
+
+    // id, title, deadline, questionList 存进 localStorage中
+    _store.saveQuestionnaire(
+      _this.data.new_quest_id,
+      quest_title,
+      deadline_date,
+      questionList
+    );
+
+    // 打印本地数据
+    console.log(_store.fetch().questionnaireList);
+  },
+  /**
+   * 发布问卷
+   */
+  releaseQuestionnaire: function() {
+    let _this = this;
+    // 先保存问卷
+    _this.saveQuestionnaire();
+    // 调用 store 里的发布问卷函数
+    let res = _store.releaseQuestionnaire(_this.data.new_quest_id);
+    // 反馈
+    if (res === true) {
+      alert("问卷发布成功！");
+    } else {
+      alert(res);
+    }
+  }
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
   page.init();
 });

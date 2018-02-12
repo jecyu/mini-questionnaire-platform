@@ -369,11 +369,11 @@ let _store = {
   /**
    * 新增问卷
    * @param {Number} o 问卷所有者
-   * @return {Number} 新问卷的标识
+   * @return {Number} q.id 新问卷的标识
    */
-  addQuestionnaire: function(o) {
+  addQuestionnaire: function(o, newId) {
     let q = {
-      id: newId++,
+      id: ++newId,
       owner: o,
       title: "我的问卷",
       state: "draft",
@@ -382,8 +382,14 @@ let _store = {
       questionList: [],
       respondents: []
     };
+
+    // 在本地的数据基础上，新增问卷
+    let local_data = this.fetch();
+    this.data = local_data;
+    // 这里只是在 store.js 的两天问卷基础上新增一条，然后把本地的数据覆盖掉。所以要加上  this.data = local_data;
     this.data.questionnaireList.push(q);
     localStorage.setItem(key, JSON.stringify(this.data));
+
     return q.id;
   },
   /**
@@ -410,6 +416,10 @@ let _store = {
    */
   saveQuestionnaire: function(qid, title, deadline, questionList) {
     var _this = this;
+    // 在本地的数据基础上，新增问卷
+    let local_data = this.fetch();
+    this.data = local_data;
+
     for (let i = 0; i < _this.data.questionnaireList.length; i++) {
       if (_this.data.questionnaireList[i].id === qid) {
         _this.data.questionnaireList[i].title = title;
@@ -433,9 +443,9 @@ let _store = {
       if (_this.data.questionnaireList[i].id === qid) {
         // 是否满足发布要求：设置了截至日期，且至少有一道问题
         if (_this.data.questionnaireList[i].deadline === null) {
-          return "please set a deadline";
+          return "是不是忘了设置截至日期啦！";
         } else if (_this.data.questionnaireList[i].questionList.length === 0) {
-          return "Empty question list";
+          return "至少要设置一道问题哦！";
         }
         _this.data.questionnaireList[i].state = "released";
         _this.data.questionnaireList[i].releaseDate =

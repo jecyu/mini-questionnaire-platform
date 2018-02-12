@@ -166,9 +166,8 @@ let page = {
         // 重新渲染视图
         _this.loadList();
       }
+      console.log(_store.fetch().questionnaireList);
     });
-
-    /* === 新建问卷 === */
   },
   /**
    * 新建问卷
@@ -189,13 +188,19 @@ let page = {
     let questionnaireListHtml = "";
     let $listCon = $(".questionnaire-list");
 
-    // 渲染Html
-    _this.filter(_store.data);
-    // 存储到本地
-    _store.initData();
+    // 获取本地数据
+    let local_data = _store.fetch();
+    // 使用预存的数据，初始化列表
+    // _store.initData();
 
-    questionnaireListHtml = _mq.renderHtml(templateIndex, _store.data);
+    // 渲染Html
+    _this.filter(local_data);
+    // _this.filter(_store.data);
+
+    questionnaireListHtml = _mq.renderHtml(templateIndex, local_data);
+    // questionnaireListHtml = _mq.renderHtml(templateIndex, _store.data);
     $listCon.html(questionnaireListHtml);
+    console.log(local_data.questionnaireList);
   },
   /**
    * 数据匹配,添加flag判断
