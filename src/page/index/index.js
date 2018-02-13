@@ -33,6 +33,42 @@ let page = {
   },
   bindEvent: function() {
     var _this = this;
+
+    /* ========================= 编辑问卷 ============================ */
+    /* ========================= 查看问卷 ============================ */
+    /* ========================= 查看数据 ============================ */
+  },
+  /**
+   * 加载问卷列表
+   */
+  loadList: function() {
+    let _this = this;
+    let questionnaireListHtml = "";
+    let $listCon = $(".questionnaire-list");
+
+    // 获取本地数据
+    let local_data = _store.fetch();
+    // 使用预存的数据，初始化列表
+    // _store.initData();
+
+    // 渲染Html
+    _this.filter(local_data);
+    // _this.filter(_store.data);
+
+    questionnaireListHtml = _mq.renderHtml(templateIndex, local_data);
+    // questionnaireListHtml = _mq.renderHtml(templateIndex, _store.data);
+    $listCon.html(questionnaireListHtml);
+    console.log(local_data.questionnaireList);
+
+    /* ================== 为所有按钮绑定好相关事件 ===================== */
+    _this.prepareOperaBtn();
+  },
+  /**
+   * 为所有按钮绑定好相关事件
+   */
+  prepareOperaBtn: function() {
+    // 存储 page 对象
+    const _this = this;
     // 禁用锚按钮
     $("body").on("click", "a.btn--is-disabled", function noBubbling(event) {
       // 禁止 a 链接的默认行为
@@ -57,7 +93,7 @@ let page = {
     // 取得全选的 “删除” 按钮
     let btn_deleteAll = $(".quest-footer").find(".btn-deleteAll");
 
-    /* === 单条问卷的选择、取消选择 === */
+    /* =================== 问卷的单条选择、取消选择 ====================== */
 
     $("body").on("click", ".quest-select", function(event) {
       // 禁止冒泡
@@ -104,7 +140,8 @@ let page = {
       });
     });
 
-    /* === 问卷的全选、取消全选与全选删除逻辑 === */
+    /* =================== 问卷的全选、取消全选与全选删除逻辑 ================== */
+
     $("body").on("click", ".quest-select-all", function(event) {
       let $this = $(this);
       event.stopPropagation();
@@ -135,7 +172,7 @@ let page = {
       }
     });
 
-    /* === 实现单条问卷删除 === */
+    /* =================== 问卷的单条删除 =============================== */
 
     $("body").on("click", ".btn-delete", function delQuest(event) {
       // 禁用 a 的默认行为
@@ -168,39 +205,9 @@ let page = {
       }
       console.log(_store.fetch().questionnaireList);
     });
-  },
-  /**
-   * 新建问卷
-   */
-  // prepareCreateNewQuest: function() {
-  //   // 绑定单击监听
-  //   $(document).on("click", ".js-create-questionnaire", function createQuest() {
-  //     // 存储到 localstorage 中
-  //     _store.addQuestionnaire(1);
-  //     console.log(_store.data.questionnaireList);
-  //   });
-  // },
-  /**
-   * 加载问卷列表
-   */
-  loadList: function() {
-    let _this = this;
-    let questionnaireListHtml = "";
-    let $listCon = $(".questionnaire-list");
 
-    // 获取本地数据
-    let local_data = _store.fetch();
-    // 使用预存的数据，初始化列表
-    // _store.initData();
-
-    // 渲染Html
-    _this.filter(local_data);
-    // _this.filter(_store.data);
-
-    questionnaireListHtml = _mq.renderHtml(templateIndex, local_data);
-    // questionnaireListHtml = _mq.renderHtml(templateIndex, _store.data);
-    $listCon.html(questionnaireListHtml);
-    console.log(local_data.questionnaireList);
+    /* ==================== 问卷的编辑 ================================ */
+    $("body").on("click", ".btn-");
   },
   /**
    * 数据匹配,添加flag判断

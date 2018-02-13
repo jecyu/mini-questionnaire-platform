@@ -29,7 +29,10 @@ let getHtmlConfig = function(name, title) {
 const entry = {
   common: __dirname + "/src/page/common/index.js",
   index: __dirname + "/src/page/index/index.js",
-  "new-questionnaire": [__dirname + "/src/page/new-questionnaire/index.js"]
+  "new-questionnaire": [__dirname + "/src/page/new-questionnaire/index.js"],
+  "questionnaire-detail": [
+    __dirname + "/src/page/questionnaire-detail/index.js"
+  ]
 };
 
 const devServer = {
@@ -57,6 +60,7 @@ const plugins = [
   new ExtractTextPlugin("css/[name].css"),
   new HtmlWebpackPlugin(getHtmlConfig("index", "首页")),
   new HtmlWebpackPlugin(getHtmlConfig("new-questionnaire", "新建问卷")),
+  new HtmlWebpackPlugin(getHtmlConfig("questionnaire-detail", "问卷详情")),
   // 让$指向jQuery
   new webpack.ProvidePlugin({
     // Automatically load modules instead of having to import or require them everywhere.

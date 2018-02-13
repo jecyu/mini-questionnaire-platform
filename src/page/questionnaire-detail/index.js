@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:21 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-13 19:48:12
+ * @Last Modified time: 2018-02-13 23:21:44
  */
 "use strict";
 
@@ -25,11 +25,12 @@ let page = {
     this.onLoad();
   },
   onLoad: function() {
-    this.bindEvent();
+    // 获取当前问卷的 id
+    const questionnaire_id = _mq.getUrlParam("questionnaireId");
+    // 加载当前问卷
+    this.loadCurrentQuest(questionnaire_id);
 
-    let new_id = _store.fetch().questionnaireList.length;
-    /* === 新建问卷 === */
-    this.data.new_quest_id = _store.addQuestionnaire(1, new_id);
+    this.bindEvent();
     // 打印本地数据
     console.log(_store.fetch().questionnaireList);
 
@@ -151,6 +152,47 @@ let page = {
     });
   },
   /**
+   * 加载当前问卷
+   * @param {string} QuestId 问卷的 id
+   */
+  loadCurrentQuest: function(QuestionnaireId) {
+    let _this = this;
+    let questionListHtml = "";
+    let $listCon = $(".mod-quest");
+
+    // 获取指定问卷的数据
+    const current_questionnaire = _store.fetchQuestionnaire(QuestionnaireId);
+
+    // 过滤当前问卷的数据
+    _this.filter(current_questionnaire);
+    // 生成指定的字符串
+    questionListHtml = _mq.renderHtml(templateIndex, current_questionnaire);
+    // 把渲染后的模版添加到 DOM 中
+    $listCon.html(questionListHtml);
+  },
+  /**
+   * 数据匹配,添加flag判断
+   * @param data {object}
+   */
+  filter: function(data) {
+    // 判断问卷列表是否为空，用在hogan渲染模版
+    data.notEmpty = !!data.questionList.length;
+
+    // 过滤处理问题类型
+    for (let i = 0, len = data.questionList.length; i < len; i++) {
+      // 单选题
+      if (data.questionList[i].qtype == "single") {
+      }
+      // 多选题
+      if (data.questionList[i].qtype == "multi") {
+      }
+      // 文本题
+      if (data.questionList[i].qtype == "text") {
+      }
+    }
+  },
+
+  /**
    * 添加单选题
    * @param {string} question_order 问题顺序
    */
@@ -225,9 +267,6 @@ let page = {
     _this.questionMouseEvent();
     // 准备问题的操作按钮
     _this.prepareQuestionActionBtn(question);
-
-    // 新增选项
-    // 删除选项
   },
   /**
    * 添加多选题

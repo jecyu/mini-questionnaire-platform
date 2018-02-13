@@ -358,10 +358,10 @@ let _store = {
    * 获取指定问卷
    * @param {number} qid 问卷id
    */
-  fetchquestionnaire: function(qid) {
+  fetchQuestionnaire: function(qid) {
     let localdata = this.fetch();
-    for (let i = 0, len = localdata.length; i < len; i++) {
-      if (localdata.questionnaireList[i] === qid) {
+    for (let i = 0, len = localdata.questionnaireList.length; i < len; i++) {
+      if (localdata.questionnaireList[i].id == qid) {
         return localdata.questionnaireList[i];
       }
     }

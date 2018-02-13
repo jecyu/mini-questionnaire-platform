@@ -23,16 +23,16 @@
         {{#isRelease}}
         <td class="quest-cell release">{{stateText}}</td>
         <td class="quest-cell cell-oprea" colspan="2">
-                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看问卷</a>            
-                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看数据</a>
+                <a class="btn btn--is-disabled" href="./questionnaire-detail.html?questionnaireId={{id}}">查看问卷</a>            
+                <a class="btn btn--is-disabled" href="./questionnaire-detail.html?questionnaireId={{id}}">查看数据</a>
         </td>                
         {{/isRelease}}
         {{^isRelease}}
         <td class="quest-cell">{{stateText}}</td>
         <td class="quest-cell cell-oprea" colspan="2">
-                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">编辑</a>
-                <a class="btn-delete btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">删除</a>
-                <a class="btn btn--is-disabled" href="./questionnaire-datail.html?questionnaireId={{questionnaireId}}">查看问卷</a>
+                <a class="btn btn--is-disabled" href="./questionnaire-detail.html?questionnaireId={{id}}">编辑</a>
+                <a class="btn-delete btn btn--is-disabled" href="./questionnaire-detail.html.html?questionnaireId={{id}}">删除</a>
+                <a class="btn btn--is-disabled" href="./questionnaire-detail.html?questionnaireId={{id}}">查看问卷</a>
         </td>
         {{/isRelease}}
     </tr>

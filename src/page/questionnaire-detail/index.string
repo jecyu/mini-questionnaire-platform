@@ -1,0 +1,152 @@
+{{! 如果是非空的话}} {{#notEmpty}}
+<!-- Start=问卷头部 -->
+<div class="mod-quest__head">
+  <input class="mod-quest__title" type="text" value="{{ title }}">
+</div>
+<!-- End=问卷头部 -->
+
+<!-- Start=问卷主体 -->
+<div class="mod-quest__body">
+
+  <div class="question">
+    {{#questionList}} {{! 单选题}}
+    <div class="question__item js-question__item" data-question-order="{{ order }}">
+      <h4 class="question__title">
+        <label class="question__title-order">Q{{ order }}</label>
+        <input type="text" class="question__title-stem question__title-stem" value="{{ stem }}"></input>
+      </h4>
+      <p class="question__message">
+        <input class="question__message-checkbox" type="checkbox">
+        <label class="question__message-label" for="required">此题是否必填</label>
+      </p>
+      <ul class="question__option">
+        {{#options}}
+        <li class="question__option-item" data-option-id="{{ id }}">
+          <input class="question__option-radio" type="radio" name="single" disabled>
+          <label class="question__option-label" for="">
+            <input type="text" value="{{ content }}">
+          </label>
+          <span class="question__btn btn question__option-del">
+            <i class="question__icon fa fa-trash-o"></i>删除</span>
+        </li>
+        {{/options}}
+      </ul>
+      <div class="question__action-buttons clearfix">
+        <p class="question__btn btn question__option-install left">
+          <i class="fa question__icon fa-plus-circle"></i>新增选项</p>
+        <ul class="right">
+          <li class="question__btn btn question__item-moveUp left">
+            <i class="fa question__icon fa-arrow-circle-o-up"></i>上移</li>
+          <li class="question__btn btn question__item-moveDown left">
+            <i class="fa question__icon fa-arrow-circle-o-down"></i>下移</li>
+          <li class="question__btn btn question__item-copy left">
+            <i class="fa question__icon fa-copy"></i>复用</li>
+          <li class="question__btn btn question__item-delete left">
+            <i class="fa question__icon fa-trash-o"></i>删除</li>
+        </ul>
+      </div>
+    </div>
+
+    {{! 多选题}}
+    <div class="question__item js-question__item">
+      <h4 class="question__title">
+        <label class="question__title-order">Q{{ order }}</label>
+        <input type="text" class="question__title-stem" value="{{ stem }}"></input>
+      </h4>
+      <p class="question__message">
+        <input class="question__message-checkbox" id="required" type="checkbox">
+        <label class="question__message-label" for="required">此题是否必填</label>
+      </p>
+      <ul class="question__option">
+        {{ #options }}
+        <li class="question__option-item">
+          <input class="question__option-checkbox" type="checkbox" disabled>
+          <label class="question__option-label" for="">
+            <input type="text" value="{{ content }}">
+          </label>
+          <span class="question__btn btn question__option-del">
+            <i class="question__icon  fa fa-trash-o"></i>删除</span>
+        </li>
+        {{ /options }}
+      </ul>
+      <div class="question__action-buttons clearfix">
+        <p class="question__btn btn question__option-install left">
+          <i class="fa question__icon fa-plus-circle"></i>新增选项</p>
+        <ul class="right">
+          <li class="question__btn btn question__item-moveUp left">
+            <i class="fa question__icon fa-arrow-circle-o-up"></i>上移</li>
+          <li class="question__btn btn question__item-moveDown left">
+            <i class="fa question__icon fa-arrow-circle-o-down"></i>下移</li>
+          <li class="question__btn btn question__item-copy left">
+            <i class="fa question__icon fa-copy"></i>复用</li>
+          <li class="question__btn btn question__item-delete left">
+            <i class="fa question__icon fa-trash-o"></i>删除</li>
+        </ul>
+      </div>
+    </div>
+
+    {{! 文本题}}
+    <div class="js-question__item question__item question__item-text">
+      <h4 class="question__title">
+        <label class="question__title-order">Q{{ order }}</label>
+        <input type="text" class="question__title-stem" value="{{ stem }}"></input>
+      </h4>
+      <p class="question__message">
+        <input class="question__message-checkbox" id="required" type="checkbox">
+        <label class="question__message-label" for="required">此题是否必填</label>
+      </p>
+      <div class="question__option-item">
+        <textarea class="question__option-textarea" name="" id="" cols="30" rows="10" disabled>
+
+        </textarea>
+      </div>
+      <div class="question__action-buttons clearfix">
+        <ul class="right">
+          <li class="question__btn btn question__item-moveUp left">
+            <i class="fa question__icon fa-arrow-circle-o-up"></i>上移</li>
+          <li class="question__btn btn question__item-moveDown left">
+            <i class="fa question__icon fa-arrow-circle-o-down"></i>下移</li>
+          <li class="question__btn btn question__item-copy left">
+            <i class="fa question__icon fa-copy"></i>复用</li>
+          <li class="question__btn btn question__item-delete left">
+            <i class="fa question__icon fa-trash-o"></i>删除</li>
+        </ul>
+      </div>
+    </div>
+
+    {{/questionList}}
+  </div>
+
+  <!-- Start=问卷按钮 -->
+  <div class="mod-quest__btns">
+    <div id="js-question-type" class="btns__question-type">
+      <button id="js-single" class="btn btn--qtype">
+        <i class="fa fa-circle-o"></i>单选</button>
+      <button id="js-multi" class="btn btn--qtype">
+        <i class="fa fa-check-square"></i>多选</button>
+      <button id="js-textarea" class="btn btn--qtype">
+        <i class="fa fa-file-text"></i>文本题</button>
+    </div>
+    <div id="js-add-question" class="btns__add-question">
+      <span>
+        <i class="fa fa-plus"></i>添加问题</span>
+    </div>
+  </div>
+  <!-- End=问卷按钮 -->
+
+</div>
+<!-- End=问卷主体 -->
+
+<!-- Start=问卷底部 -->
+<div class="mod-quest__foot clearfix">
+  <div class="mod-quest__date">
+    <label class="mod-quest__datelabel" for="datepicker">问卷截止日期</label>
+    <input class="mod-quest__datepicker" id="datepicker" type="text" value="{{ deadline }}">
+  </div>
+  <div class="mod-quest__server">
+    <button class="btn btn--save  js-btn--save">保存按钮</button>
+    <button class="btn btn--submit  js-btn--submit">发布问卷</button>
+  </div>
+</div>
+<!-- End=问卷底部 -->
+{{/notEmpty}}
