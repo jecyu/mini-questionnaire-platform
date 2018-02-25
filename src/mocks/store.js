@@ -317,15 +317,15 @@ let _store = {
               },
               {
                 id: 2,
-                content: "对社会认知不够"
+                content: "4000-5000元"
               },
               {
                 id: 3,
-                content: "对未来目标不明"
+                content: "5000-6000元"
               },
               {
                 id: 4,
-                content: "对就业准备不当"
+                content: "6000-7000元"
               }
             ]
           },
@@ -467,8 +467,9 @@ let _store = {
    * @param {*} ans 对每道题的作答
    */
   sumbitAnswer: function(qid, ans) {
-    for (let i = 0; i < _this.data.questionList.length; i++) {
-      if (_this.data.questionnaireList[i].id === qid) {
+    let _this = this;
+    for (let i = 0; i < _this.data.questionnaireList.length; i++) {
+      if (_this.data.questionnaireList[i].id == qid) {
         _this.data.questionnaireList[i].respondents.push(ans);
         localStorage.setItem(key, JSON.stringify(_this.data));
         return true;

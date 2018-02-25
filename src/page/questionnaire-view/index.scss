@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:27 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-25 15:18:39
+ * @Last Modified time: 2018-02-25 22:32:55
  */
 
 @import "../common/styles/components/buttons.scss";
@@ -41,6 +41,7 @@ $dark-gray: hsl(0, 0%, 37%);
       display: inline-block;
       width: 100%;
       height: 5rem;
+      line-height: 5rem;
       font-size: 2rem;
       font-weight: 600;
       text-align: center;
@@ -127,7 +128,8 @@ $dark-gray: hsl(0, 0%, 37%);
     padding: 1.5rem 2rem;
     &:hover {
       background: hsl(29, 79%, 94%);
-    } // Required ?
+    }
+    // Required ?
     .question__message {
       position: absolute;
       right: 2rem;
@@ -147,11 +149,12 @@ $dark-gray: hsl(0, 0%, 37%);
     font-weight: 500;
     &-order {
       margin-right: 0.6rem;
-    } // Is-required
-    &--is-required::after {
+    }
+    // Is-required
+    &--is-required::before {
       content: "*";
       display: inline-block;
-      color: hsl(0, 0%, 100%);
+      color: red;
     }
   }
   &__option-item {
@@ -159,6 +162,7 @@ $dark-gray: hsl(0, 0%, 37%);
   }
   &__option-label {
     vertical-align: 0.2rem;
+    cursor: pointer;
   } // Question button
   &__btn {
     padding: 0;

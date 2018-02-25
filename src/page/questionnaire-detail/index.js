@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:21 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-25 13:36:29
+ * @Last Modified time: 2018-02-25 15:37:37
  */
 "use strict";
 
@@ -179,6 +179,8 @@ let page = {
     questionListHtml = _mq.renderHtml(templateIndex, current_questionnaire);
     // 把渲染后的模版添加到 DOM 中
     $listCon.html(questionListHtml);
+
+    _this.questionMouseEvent();
   },
   /**
    * 数据匹配,添加flag判断
