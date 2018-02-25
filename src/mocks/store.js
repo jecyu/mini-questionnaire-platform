@@ -421,7 +421,7 @@ let _store = {
     this.data = local_data;
 
     for (let i = 0; i < _this.data.questionnaireList.length; i++) {
-      if (_this.data.questionnaireList[i].id === qid) {
+      if (_this.data.questionnaireList[i].id == qid) {
         _this.data.questionnaireList[i].title = title;
         _this.data.questionnaireList[i].deadline = deadline;
         _this.data.questionnaireList[i].questionList = questionList;
@@ -440,7 +440,7 @@ let _store = {
     let _this = this;
     let current = new Date();
     for (let i = 0; i < _this.data.questionnaireList.length; i++) {
-      if (_this.data.questionnaireList[i].id === qid) {
+      if (_this.data.questionnaireList[i].id == qid) {
         // 是否满足发布要求：设置了截至日期，且至少有一道问题
         if (_this.data.questionnaireList[i].deadline === null) {
           return "是不是忘了设置截至日期啦！";

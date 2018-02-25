@@ -1,0 +1,180 @@
+/*
+ * @Author: jecyu 
+ * @Date: 2018-01-28 19:04:27 
+ * @Last Modified by: jecyu
+ * @Last Modified time: 2018-02-25 15:18:39
+ */
+
+@import "../common/styles/components/buttons.scss";
+$basecolor: hsl(25, 85%, 52%);
+$main-theme-color: $basecolor;
+$cyan: hsl(116, 73%, 64%);
+$white: hsl(0, 0%, 100%);
+$dark-gray: hsl(0, 0%, 37%);
+@mixin setColorAndHover($baseColor) {
+  // Color: $baseColor;
+  &:hover {
+    background: lighten($baseColor, 40%);
+  }
+}
+
+@mixin setShadow {
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.4);
+}
+
+// When there is no questionnaire
+.page-content {
+  width: 100%;
+  min-height: 40rem;
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+  padding: 0 3.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.4);
+  background: hsl(0, 0%, 100%);
+}
+
+.mod-quest {
+  &__head {
+    padding: 2rem;
+    .mod-quest__title {
+      display: inline-block;
+      width: 100%;
+      height: 5rem;
+      font-size: 2rem;
+      font-weight: 600;
+      text-align: center;
+      color: darken($dark-gray, 0);
+      &:hover {
+        cursor: pointer;
+        background-color: hsl(25, 85%, 95%);
+      }
+    }
+  }
+  &__body {
+    padding: 2rem;
+    border: 0.2rem solid lighten($dark-gray, 40);
+    border-left: 0;
+    border-right: 0; // Question-title or question-option
+    input[type="text"] {
+      display: inline-block;
+      min-width: 50rem;
+      background: transparent;
+      &:focus {
+        font-weight: 600;
+      }
+    }
+    .mod-quest__btns {
+      border: 0.1rem solid lighten($dark-gray, 40);
+      text-align: center;
+      box-shadow: 0 0 0.1rem hsl(0, 0%, 80%);
+      color: $dark-gray;
+    }
+    .btns__question-type {
+      font-size: 0;
+      background-color: hsl(0, 0%, 100%);
+    }
+    .btns__add-question {
+      padding: 3rem 0;
+      background-color: hsl(0, 0%, 93%);
+      cursor: pointer;
+      &:hover {
+        background-color: hsl(0, 0%, 95%);
+      }
+    }
+    .btn--qtype {
+      height: 3rem;
+      width: 10rem;
+      margin: 2rem 1rem;
+      border-radius: 0;
+      background: hsl(0, 0%, 93%);
+      &:hover {
+        color: $dark-gray;
+        background-color: hsl(0, 0%, 97%);
+      } // Icon
+      .fa {
+        color: $dark-gray;
+        padding-right: 1rem;
+      }
+    }
+    .fa-plus {
+      padding-right: 2rem;
+      font-size: 1.6rem;
+    }
+  }
+  &__foot {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 3rem;
+    padding-bottom: 3rem;
+    .mod-quest__date {
+    }
+    .mod-quest__datelabel {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+    .mod-quest__datepicker {
+      padding: 0.8rem;
+      border: 0.1rem solid hsl(0, 0%, 80%);
+    }
+  }
+}
+
+.question {
+  &__item {
+    position: relative;
+    padding: 1.5rem 2rem;
+    &:hover {
+      background: hsl(29, 79%, 94%);
+    } // Required ?
+    .question__message {
+      position: absolute;
+      right: 2rem;
+      top: 1.6rem;
+      &-checkbox {
+        vertical-align: -0.2rem;
+      }
+    }
+  } // Question-text
+  &__item-text {
+    // Text box
+    .question__option-textarea {
+      width: 60rem;
+    }
+  }
+  &__title {
+    font-weight: 500;
+    &-order {
+      margin-right: 0.6rem;
+    } // Is-required
+    &--is-required::after {
+      content: "*";
+      display: inline-block;
+      color: hsl(0, 0%, 100%);
+    }
+  }
+  &__option-item {
+    margin: 1rem 0 1rem 3rem;
+  }
+  &__option-label {
+    vertical-align: 0.2rem;
+  } // Question button
+  &__btn {
+    padding: 0;
+    min-width: 5rem;
+    border: 0.1rem dashed;
+    background: transparent;
+  }
+  &__icon {
+    margin-right: 0.4rem;
+  }
+}
+
+// Operating btn
+.question__action-buttons {
+  margin-top: 2rem;
+  .question__option-install {
+    margin-left: 3rem;
+  }
+}
