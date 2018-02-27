@@ -468,6 +468,11 @@ let _store = {
    */
   sumbitAnswer: function(qid, ans) {
     let _this = this;
+    // 在本地的数据基础上，新增问卷
+    let local_data = this.fetch();
+    _this.data = local_data;
+    // 这里只是在 store.js 的两天问卷基础上新增一条，然后把本地的数据覆盖掉。所以要加上  this.data = local_data;
+
     for (let i = 0; i < _this.data.questionnaireList.length; i++) {
       if (_this.data.questionnaireList[i].id == qid) {
         _this.data.questionnaireList[i].respondents.push(ans);

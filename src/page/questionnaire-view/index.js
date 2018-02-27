@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:21 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-25 23:23:52
+ * @Last Modified time: 2018-02-27 22:58:17
  */
 "use strict";
 
@@ -61,8 +61,16 @@ let page = {
 
     /* ========================== 提交问卷 ================================ */
     $(".mod-quest__foot").on("click", ".js-btn--submit", function() {
-      // 提交问卷
-      _this.submitQuestionnaire();
+      let isFilled = _this.isFilled();
+      /* === 判断当前所有必填的题目是否已填 === */
+      if (isFilled) {
+        // 提交问卷
+        _this.submitQuestionnaire();
+      } else {
+        alert("请确保所有内容填写正确哦！");
+      }
+      // 打印本地数据
+      console.log(_store.fetch().questionnaireList);
     });
   },
   /**
@@ -76,6 +84,11 @@ let page = {
 
     // 获取指定问卷的数据
     const current_questionnaire = _store.fetchQuestionnaire(QuestionnaireId);
+
+    // 根据当前问卷的状态，来决定是否能够提交
+    if (current_questionnaire.state == "released") {
+      current_questionnaire.isSubmit = true;
+    }
 
     // 过滤当前问卷的数据
     _this.filter(current_questionnaire);
@@ -92,6 +105,7 @@ let page = {
     const _this = this;
     // 判断问卷列表是否为空，用在hogan渲染模版
     data.notEmpty = !!data.questionList.length;
+    //
 
     // 过滤处理问题类型
     for (let i = 0, len = data.questionList.length; i < len; i++) {
@@ -142,26 +156,34 @@ let page = {
             .find(".question__option-textarea") // 找到文本框
             .val() // 取得里面的值
             .trim(); // 去掉字符串前后的空格
+          // 存储进问题答案容器
+          question_answer.push(answer_content);
         }
         // 单选题
         if (question_qtype == "single") {
           // 新建一个选项对象
-          let option = { id: 1 };
+          let option = {
+            id: 1
+          };
           option.id = index + 1;
           // 取得被选择的选项 id
           if (
             $(this)
-              .find(".question__option-raido") // 找到选项的按钮
+              .find(".question__option-radio") // 找到选项的按钮
               .prop("checked") // 找到勾选的选项
           ) {
             // 存储进问题答案容器
-            answer_content.push(option.id);
-          } 
+            answer_content = option.id;
+            // 存储进问题答案容器
+            question_answer.push(answer_content);
+          }
         }
         // 多选题
         if (question_qtype == "multi") {
           // 新建一个选项对象
-          let option = { id: 1 };
+          let option = {
+            id: 1
+          };
           option.id = index + 1;
           // 取得被选择的选项 id
           if (
@@ -171,11 +193,10 @@ let page = {
           ) {
             // 存储进问题答案容器
             answer_content = option.id;
-          } 
+            // 存储进问题答案容器
+            question_answer.push(answer_content);
+          }
         }
-          
-        // 存储进问题答案容器
-        question_answer.push(answer_content);
       });
 
       // 把当前问题存储进当前问卷中
@@ -191,9 +212,58 @@ let page = {
     } else {
       alert(res);
     }
+  },
+  /**
+   * 检查必填项
+   */
+  isFilled: function() {
+    // 找到所有必填的题目
+    let $questions_required = $(".js-question__item[required]");
 
-    // 打印本地数据
-    console.log(_store.fetch().questionnaireList);
+    let answer_content = "";
+    let isFilled = false;
+    $questions_required.each(function() {
+      let question_qtype = $(this).attr("data-qtype");
+      // 存储当前题目的选项
+      let question_options = $(this).find(".question__option-item");
+
+      question_options.each(function() {
+        // 文本题
+        if (question_qtype == "text") {
+          answer_content = $(this)
+            .find(".question__option-textarea") // 找到文本框
+            .val() // 取得里面的值
+            .trim(); // 去掉字符串前后的空格
+          // 如果没有填写
+          if (answer_content != "") {
+            isFilled = true;
+          }
+        }
+        if (question_qtype == "single") {
+          // 非文本题
+          if (
+            $(this)
+              .find(".question__option-radio") // 找到选项的按钮
+              .prop("checked")
+          ) {
+            // 只要当前题目有勾选，就为 true
+            isFilled = true;
+          }
+        }
+        // 多选题
+        if (question_qtype == "multi") {
+          if (
+            $(this)
+              .find(".question__option-checkbox") // 找到选项的按钮
+              .prop("checked")
+          ) {
+            // 只要当前题目有勾选，就为 true
+            isFilled = true;
+          }
+        }
+      });
+    });
+    return isFilled;
   }
 };
 

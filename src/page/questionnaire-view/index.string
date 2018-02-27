@@ -12,16 +12,17 @@
     {{#questionList}} 
     {{! 单选题}}
     {{#isSingle}}
-    <div class="question__item js-question__item" data-question-order="{{ order }}"  data-qtype="{{qtype}}">
       {{#required}}
-      <h4 class="question__title question__title--is-required">
+        <div class="question__item js-question__item" data-question-order="{{ order }}"  data-qtype="{{qtype}}" required>
+          <h4 class="question__title question__title--is-required">
       {{/required}}
       {{^required}}
-      <h4 class="question__title">
+        <div class="question__item js-question__item" data-question-order="{{ order }}"  data-qtype="{{qtype}}">
+          <h4 class="question__title">
       {{/required}}
-        <label class="question__title-order">Q{{ order }}</label>
-        <span>{{ stem }}</span>
-      </h4>
+            <label class="question__title-order">Q{{ order }}</label>
+            <span>{{ stem }}</span>
+          </h4>
       <ul class="question__option">
         {{#options}}
         <li class="question__option-item" data-option-id="{{ id }}">
@@ -37,11 +38,13 @@
     
     {{! 多选题}}
     {{#isMulti}}
-    <div class="question__item js-question__item" data-qtype="{{qtype}}">
+   
       {{#required}}
+       <div class="question__item js-question__item" data-qtype="{{qtype}}" required>
       <h4 class="question__title question__title--is-required">
       {{/required}}
       {{^required}}
+      <div class="question__item js-question__item" data-qtype="{{qtype}}">
       <h4 class="question__title">
       {{/required}}
         <label class="question__title-order">Q{{ order }}</label>
@@ -63,11 +66,12 @@
 
     {{! 文本题}}
     {{#isText}}
-    <div class="js-question__item question__item question__item-text" data-qtype="{{qtype}}">
       {{#required}}
+    <div class="js-question__item question__item question__item-text" data-qtype="{{qtype}}" required>
       <h4 class="question__title question__title--is-required">
       {{/required}}
       {{^required}}
+       <div class="js-question__item question__item question__item-text" data-qtype="{{qtype}}">
       <h4 class="question__title">
       {{/required}}
         <label class="question__title-order">Q{{ order }}</label>
@@ -93,7 +97,13 @@
     <input class="mod-quest__datepicker" id="datepicker" type="text" value="{{deadline}}" disabled>
   </div>
   <div class="mod-quest__server">
+    {{#isSubmit}}
     <button class="btn btn--save  js-btn--submit">提交问卷</button>
+    {{/isSubmit}}    
+    {{! 结束状态或者是草稿状态}}
+    {{^isSubmit}}  
+    <span >当前问卷已经结束或未发布，无法提交</span>
+    {{/isSubmit}}        
   </div>
 </div>
 <!-- End=问卷底部 -->
