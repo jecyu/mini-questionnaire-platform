@@ -33,7 +33,8 @@ const entry = {
   "questionnaire-detail": [
     __dirname + "/src/page/questionnaire-detail/index.js"
   ],
-  "questionnaire-view": [__dirname + "/src/page/questionnaire-view/index.js"]
+  "questionnaire-view": [__dirname + "/src/page/questionnaire-view/index.js"],
+  "questionnaire-data": [__dirname + "/src/page/questionnaire-data/index.js"]
 };
 
 const devServer = {
@@ -63,6 +64,7 @@ const plugins = [
   new HtmlWebpackPlugin(getHtmlConfig("new-questionnaire", "新建问卷")),
   new HtmlWebpackPlugin(getHtmlConfig("questionnaire-detail", "问卷详情")),
   new HtmlWebpackPlugin(getHtmlConfig("questionnaire-view", "查看问卷")),
+  new HtmlWebpackPlugin(getHtmlConfig("questionnaire-data", "查看数据")),
   // 让$指向jQuery
   new webpack.ProvidePlugin({
     // Automatically load modules instead of having to import or require them everywhere.

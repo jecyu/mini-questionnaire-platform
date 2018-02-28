@@ -1,0 +1,115 @@
+{{! 如果是非空的话}} {{#notEmpty}}
+<!-- Start=问卷头部 -->
+<div class="mod-quest__head">
+  <label class="mod-quest__title">{{ title }}</label>
+  <p>此统计分析只包含完整回收的数据</p>
+  <a class="mod-quest__back" href="index.html">返回></a>
+</div>
+<!-- End=问卷头部 -->
+
+<!-- Start=问卷主体 -->
+<div class="mod-quest__body">
+
+  <div class="question">
+    {{#questionList}} 
+    {{! 单选题}}
+    {{#isSingle}}
+      {{#required}}
+        <div class="question__item js-question__item" data-question-order="{{ order }}"  data-qtype="{{qtype}}" required>
+          <h4 class="question__title question__title--is-required">
+      {{/required}}
+      {{^required}}
+        <div class="question__item js-question__item" data-question-order="{{ order }}"  data-qtype="{{qtype}}">
+          <h4 class="question__title">
+      {{/required}}
+            <label class="question__title-order">Q{{ order }}</label>
+            <span>{{ stem }}</span>
+            <span class="right question__title-data">数据占比</span>
+          </h4>
+      <ul class="question__option">
+        {{#options}}
+        <li class="question__option-item" data-option-id="{{ id }}">
+          <label class="question__option-label" for="{{order}}{{id}}">
+             {{ content }}
+          </label>
+          <div class="question__option-data right">
+            <span class="question__option-dataO">
+              <span class="question__option-dataI"></span>
+            </span>
+            <span class="question__option-proportion">50%</span>
+          </div>
+        </li>
+        {{/options}}
+      </ul>
+    </div>
+    {{/isSingle}}
+    
+    {{! 多选题}}
+    {{#isMulti}}
+   
+      {{#required}}
+       <div class="question__item js-question__item" data-qtype="{{qtype}}" required>
+      <h4 class="question__title question__title--is-required">
+      {{/required}}
+      {{^required}}
+      <div class="question__item js-question__item" data-qtype="{{qtype}}">
+      <h4 class="question__title">
+      {{/required}}
+        <label class="question__title-order">Q{{ order }}</label>
+        <span> {{ stem }}</span>
+        <span class="right question__title-data">数据占比</span>
+        
+      </h4>
+      <ul class="question__option">
+        {{#options}}
+        <li class="question__option-item">
+          <label class="question__option-label" for="{{order}}{{id}}">
+            {{ content }}
+          </label>
+        </li>
+        {{/options}}
+      </ul>
+       <div class="question__option-data question__option-data--multi" id="Q{{order}}" >
+          </div>
+         
+    </div>
+    {{/isMulti}}
+    
+
+    {{! 文本题}}
+    {{#isText}}
+      {{#required}}
+    <div class="js-question__item question__item question__item-text" data-qtype="{{qtype}}" required>
+      <h4 class="question__title question__title--is-required">
+      {{/required}}
+      {{^required}}
+       <div class="js-question__item question__item question__item-text" data-qtype="{{qtype}}">
+      <h4 class="question__title">
+      {{/required}}
+        <label class="question__title-order">Q{{ order }}</label>
+        <span class="question__title-stem">{{ stem }}<span/>
+        <span class="right question__title-data">有效回答占比</span>
+      </h4>
+      <div class="question__option-item">
+        <div class="question__option-data right">
+          <span class="question__option-dataO">
+            <span class="question__option-dataI"></span>
+          </span>
+          <span class="question__option-proportion">50%</span>
+        </div>
+      </div>
+    </div>
+    {{/isText}}
+
+    {{/questionList}}
+  </div>
+
+</div>
+<!-- End=问卷主体 -->
+
+<!-- Start=问卷底部 -->
+<div class="mod-quest__foot">
+    <a class="btn" href="index.html">返回</a>
+</div>
+<!-- End=问卷底部 -->
+{{/notEmpty}}

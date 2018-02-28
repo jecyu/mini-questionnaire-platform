@@ -24,7 +24,7 @@
         <td class="quest-cell release">{{stateText}}</td>
         <td class="quest-cell cell-oprea" colspan="2">
                 <a class="btn btn--is-disabled" href="./questionnaire-view.html?questionnaireId={{id}}">查看问卷</a>            
-                <a class="btn btn--is-disabled" href="./questionnaire-detail.html?questionnaireId={{id}}">查看数据</a>
+                <a class="btn btn--is-disabled" href="./questionnaire-data.html?questionnaireId={{id}}">查看数据</a>
         </td>                
         {{/isRelease}}
         {{^isRelease}}
