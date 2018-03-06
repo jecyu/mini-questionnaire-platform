@@ -3,7 +3,7 @@
 <div class="mod-quest__head">
   <label class="mod-quest__title">{{ title }}</label>
   <p>此统计分析只包含完整回收的数据</p>
-  <a class="mod-quest__back" href="index.html">返回></a>
+  <a class="mod-quest__back" href="index.html">&lt;返回</a>
 </div>
 <!-- End=问卷头部 -->
 

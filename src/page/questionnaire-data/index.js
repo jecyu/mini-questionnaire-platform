@@ -2,7 +2,7 @@
  * @Author: jecyu 
  * @Date: 2018-01-28 19:04:21 
  * @Last Modified by: jecyu
- * @Last Modified time: 2018-02-28 23:44:45
+ * @Last Modified time: 2018-03-06 23:52:22
  */
 "use strict";
 
@@ -80,8 +80,14 @@ let page = {
     // 把渲染后的模版添加到 DOM 中
     $listCon.html(questionListHtml);
 
+    // 获取 respondents里的数据
+    _this.fetchRespondents(current_questionnaire);
+
     // 渲染数据
     _this.renderCharts(current_questionnaire);
+
+    // // 打印本地数据
+    // console.log(_store.fetch().questionnaireList);
   },
   /**
    * 数据匹配,添加flag判断
@@ -119,36 +125,65 @@ let page = {
   renderCharts: function(questionnaire) {
     // 1.多选项的处理
     // 2.文本项的处理
-    //  // 饼图
-    const option = {
-      series: {
-        type: "pie",
-        data: [
-          { name: "选项一", value: 20 },
-          { name: "选项二", value: 20 },
-          { name: "选项三", value: 40 },
-          { name: "选项四", value: 70 }
-        ]
-      }
-    };
+    let cur_quest = questionnaire;
 
-    for (let i = 0, len = questionnaire.questionList.length; i < len; i++) {
+    for (let i in cur_quest.questionList) {
+      // 饼图
+      const option = {
+        series: {
+          type: "pie",
+          data: []
+        }
+      };
+
       // 单选题
-      if (questionnaire.questionList[i].qtype == "single") {
+      if (cur_quest.questionList[i].qtype == "single") {
+        for (let j in cur_quest.questionList[i].options) {
+          cur_quest.questionList[i].options[j].proportion =
+            cur_quest.questionList[i].options.length / 1 * 100;
+        }
       }
       // 多选题
-      if (questionnaire.questionList[i].qtype == "multi") {
+      if (cur_quest.questionList[i].qtype == "multi") {
         // 渲染echats
         // 基于准备好的 DOM，初始化 echats 实例
-        let question_id = "Q" + questionnaire.questionList[i].order;
+        let question_id = "Q" + cur_quest.questionList[i].order;
         let myChart = echarts.init(document.getElementById(question_id));
+
+        // 遍历该题所有选项
+        for (let j in cur_quest.questionList[i].options) {
+          // 选项对象
+          let option_object = {};
+          option_object.name = cur_quest.questionList[i].options[j].content;
+          // 随机模拟值
+          option_object.value = Math.random(100);
+          // 把相对于的回答者的值存储下来
+          option.series.data.push(option_object);
+        }
+
         // 使用刚指定的配置项和数据显示图表
         myChart.setOption(option);
       }
       // 文本题
-      if (questionnaire.questionList[i].qtype == "text") {
-        questionnaire.questionList[i].isText = true;
+      if (cur_quest.questionList[i].qtype == "text") {
       }
+    }
+  },
+  /**
+   * 读取问卷的回答者，更新到问卷对应的选项中
+   */
+  fetchRespondents: function(questionnaire) {
+    let _this = this;
+    let cur_quest = questionnaire;
+    let cur_respondents = cur_quest.respondents;
+
+    // 无人答题
+    if (cur_respondents.length === 0) {
+      return false;
+    }
+
+    // 遍历所有回答答案
+    for (let index in cur_respondents) {
     }
   }
 };
