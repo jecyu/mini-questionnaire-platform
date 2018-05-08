@@ -1,10 +1,3 @@
-/* npm install webpack sass-loader node-sass url-loader style-loader css-loader file-loader
- imports-loader less-loader less postcss-loader autoprefixer  babel-loader html-loader
- extract-text-webpack-plugin clean-webpack-plugin html-webpack-plugin  font-awesome bootstrap
-  babel-core babel-loader babel-preset-es2015 babel-preset-react webpack-dev-server 
-  hogan.js
- --save-dev
-*/
 let webpack = require("webpack");
 let path = require("path");
 let CleanWebpackPlugin = require("clean-webpack-plugin");

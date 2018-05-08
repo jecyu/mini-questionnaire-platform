@@ -27,7 +27,12 @@ let page = {
   onLoad: function() {
     this.bindEvent();
 
-    let new_id = _store.fetch().questionnaireList.length;
+    // 当本地 localStorage 没有数据时
+    if (_store.fetch() !== null) {
+      let new_id = _store.fetch().questionnaireList.length;
+    }
+
+    let new_id = 1;    
     /* === 新建问卷 === */
     this.data.new_quest_id = _store.addQuestionnaire(1, new_id);
     // 打印本地数据

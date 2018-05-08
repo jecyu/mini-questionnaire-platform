@@ -386,7 +386,7 @@ let _store = {
     // 在本地的数据基础上，新增问卷
     let local_data = this.fetch();
     this.data = local_data;
-    // 这里只是在 store.js 的两天问卷基础上新增一条，然后把本地的数据覆盖掉。所以要加上  this.data = local_data;
+    // 这里只是在 store.js 的两条问卷基础上新增一条，然后把本地的数据覆盖掉。所以要加上  this.data = local_data;
     this.data.questionnaireList.push(q);
     localStorage.setItem(key, JSON.stringify(this.data));
 

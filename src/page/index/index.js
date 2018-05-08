@@ -48,8 +48,12 @@ let page = {
 
     // 获取本地数据
     let local_data = _store.fetch();
-    // 使用预存的数据，初始化列表
-    // _store.initData();
+    
+    // 如果本地无数据，则使用预存的数据
+    if (!local_data) {
+      // 使用预存的数据，初始化列表
+      _store.initData();
+    }
 
     // 渲染Html
     _this.filter(local_data);
@@ -58,7 +62,7 @@ let page = {
     questionnaireListHtml = _mq.renderHtml(templateIndex, local_data);
     // questionnaireListHtml = _mq.renderHtml(templateIndex, _store.data);
     $listCon.html(questionnaireListHtml);
-    console.log(local_data.questionnaireList);
+    // console.log(local_data.questionnaireList);
 
     /* ================== 为所有按钮绑定好相关事件 ===================== */
     _this.prepareOperaBtn();
@@ -214,6 +218,11 @@ let page = {
    * @param data {object}
    */
   filter: function(data) {
+    // 如果 data 为 null，
+    if (!data) {
+      return false;
+    }
+
     // 判断问卷列表是否为空，用在hogan渲染模版
     data.notEmpty = !!data.questionnaireList.length;
 
