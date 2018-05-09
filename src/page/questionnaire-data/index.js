@@ -12,7 +12,7 @@ require("../../components/Calendar/index.js");
 // let echarts = require("echarts");
 
 // 引入localStore模块
-let _store = require("mocks/store.js");
+let _store = require("../../mocks/store.js");
 let _mq = require("util/mq.js");
 let _filter = require("util/Filters/filter.js");
 let templateIndex = require("./index.string");

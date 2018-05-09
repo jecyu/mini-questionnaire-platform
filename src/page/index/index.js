@@ -11,10 +11,10 @@
 require("./index.scss");
 require("page/common/index.js");
 // 引入localStore模块
-let _store = require("mocks/store.js");
-let _mq = require("util/mq.js");
-let _filter = require("util/Filters/filter.js");
-let templateIndex = require("./index.string");
+const _store = require("../../mocks/store.js");
+const _mq = require("util/mq.js");
+const _filter = require("util/Filters/filter.js");
+const templateIndex = require("./index.string");
 
 // 逻辑
 // 1.通过localStorage获取mock数据，通过hogan来动态渲染
