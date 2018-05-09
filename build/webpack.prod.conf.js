@@ -1,3 +1,6 @@
+/**
+ * 这是用于生产环境的 webpack 配置，同样继承自 base
+ */
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 

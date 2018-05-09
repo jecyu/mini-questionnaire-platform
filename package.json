@@ -2,11 +2,11 @@
   "name": "mini-questionnaire-platform",
   "version": "1.0.0",
   "description": "简易版的问卷管理系统\r ===================",
-  "main": "postcss.config.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config ./build/webpack.dev.conf.js --open",
     "build": "webpack --config ./build/webpack.prod.conf.js --optimize-minimize ",
+    "dev": "webpack-dev-server --open --config ./build/webpack.dev.conf.js",
     "start": "npm run dev"
   },
   "repository": {

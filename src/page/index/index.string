@@ -7,7 +7,7 @@
         <th class="quest-cell cell-date">时间</th>
         <th class="quest-cell cell-status">状态</th>
         <th class="quest-cell cell-opera">操作</th>
-        <th class="quest-cell cell-create"><a href="./new-questionnaire.html" class="btn-create js-create-questionnaire"><i class="fa fa-plus"></i>新建问卷</a></th>
+        <th class="quest-cell cell-create"><a href="./new_questionnaire.html" class="btn-create js-create-questionnaire"><i class="fa fa-plus"></i>新建问卷</a></th>
     </tr>
 </thead>
 <tbody class="quest-body">
@@ -23,16 +23,16 @@
         {{#isRelease}}
         <td class="quest-cell release">{{stateText}}</td>
         <td class="quest-cell cell-oprea" colspan="2">
-                <a class="btn btn--is-disabled" href="./questionnaire-view.html?questionnaireId={{id}}">查看问卷</a>            
-                <a class="btn btn--is-disabled" href="./questionnaire-data.html?questionnaireId={{id}}">查看数据</a>
+                <a class="btn btn--is-disabled" href="./questionnaire_view.html?questionnaireId={{id}}">查看问卷</a>            
+                <a class="btn btn--is-disabled" href="./questionnaire_data.html?questionnaireId={{id}}">查看数据</a>
         </td>                
         {{/isRelease}}
         {{^isRelease}}
         <td class="quest-cell">{{stateText}}</td>
         <td class="quest-cell cell-oprea" colspan="2">
-                <a class="btn btn--is-disabled" href="./questionnaire-detail.html?questionnaireId={{id}}">编辑</a>
-                <a class="btn-delete btn btn--is-disabled" href="./questionnaire-detail.html.html?questionnaireId={{id}}">删除</a>
-                <a class="btn btn--is-disabled" href="./questionnaire-view.html?questionnaireId={{id}}">查看问卷</a>
+                <a class="btn btn--is-disabled" href="./questionnaire_detail.html?questionnaireId={{id}}">编辑</a>
+                <a class="btn-delete btn btn--is-disabled" href="./questionnaire_detail.html.html?questionnaireId={{id}}">删除</a>
+                <a class="btn btn--is-disabled" href="./questionnaire_view.html?questionnaireId={{id}}">查看问卷</a>
         </td>
         {{/isRelease}}
     </tr>
@@ -51,7 +51,7 @@
 {{/notEmpty}}
 {{^notEmpty}}
     <div class="create-container">
-        <a href="./new-questionnaire.html" class="js-create-questionnaire btn-create btn-create--large">
+        <a href="./new_questionnaire.html" class="js-create-questionnaire btn-create btn-create--large">
             <i class="fa fa-plus"></i>新建问卷
         </a>
     </div>

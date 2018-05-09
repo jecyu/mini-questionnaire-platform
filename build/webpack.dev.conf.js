@@ -1,18 +1,29 @@
 /**
  * 这里是用于开发环境的 Webpack 配置，继承自 base
  */
-const webpack = require("webpack");
-const path = require("path");
+const webpack = require('webpack');
 // 读取同一目录下的 base config
 const config = require('./webpack.base.conf');
+const path = require('path');
 
 // 添加 webpack-dev-server 相关的配置
 config.devServer = {
   contentBase: './', // 本地服务器所加载的页面所在的目录
   port: 8088,
   inline: true,
+  // publicPath: '/assets/'
   publicPath: '/dist/' // 这里必须是 /dist/，对应打包路径 path，devServer 才能访问记忆内存
+  // headers: { 'Access-Contro-Allow-Origin': '*' },
+  // // 可用
+  // proxy: {
+  //   '/users/': {
+  //     target: 'http://[::1]:3000',
+  //     secure: false,
+  //     changeOrigin: true
+  //   }
+  // }
 };
+
 
 config.module.rules.push({
   test: /\.scss$/,
